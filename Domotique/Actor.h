@@ -12,10 +12,10 @@ namespace domotique{ namespace actor {
 
 class Actor {
 protected:
-	double value = 0;
+	double _value = 0;
 public:
 	virtual void Calculate() = 0;
-	virtual double Value() = 0;
+	double Value() { return _value; };
 	Actor();
 	virtual ~Actor();
 };

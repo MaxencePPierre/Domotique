@@ -10,24 +10,26 @@
 
 #include <map>
 
-namespace domotique {
-namespace process {
+#include "Phenomenon.h"
+#include "Controller.h"
+#include "State.h"
+
+namespace domotique { namespace process {
 
 enum ActorType { Phenomenon, Controller, State };
 
 class Process {
 private:
-	Process& _phenomenon;
-	Process& _state;
-	Process& _controller;
+	actor::Phenomenon& _phenomenon;
+	actor::State& _state;
+	actor::Controller& _controller;
 public:
 	void CalculateAll();
 	std::map<ActorType, double> Values();
-	Process(Process& phenomenon, Process& state, Process& controller);
+	Process(actor::Phenomenon& phenomenon, actor::State& state, actor::Controller& controller);
 	virtual ~Process();
 };
 
-} /* namespace process */
-} /* namespace domotique */
+}}
 
 #endif /* PROCESS_H_ */

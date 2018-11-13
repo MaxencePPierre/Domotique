@@ -7,10 +7,25 @@
 
 #include "Process.h"
 
-namespace domotique {
-namespace process {
+namespace domotique { namespace process {
 
-Process::Process(Process& phenomeonon, Process& state, Process& controller)
+void Process::CalculateAll()
+{
+	_phenomenon.Calculate();
+	_controller.Calculate();
+	_state.Calculate();
+}
+
+std::map<ActorType, double> Process::Values()
+{
+	return {
+		{Phenomenon, _phenomenon.Value()},
+		{Controller, _controller.Value()},
+		{State, _state.Value()}
+	};
+}
+
+Process::Process(actor::Phenomenon& phenomeonon, actor::State& state, actor::Controller& controller)
 : _phenomenon(phenomeonon), _state(state), _controller(controller) {
 	// TODO Auto-generated constructor stub
 
@@ -20,5 +35,4 @@ Process::~Process() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace process */
-} /* namespace domotique */
+}}
