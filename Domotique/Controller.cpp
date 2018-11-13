@@ -7,10 +7,9 @@
 
 #include "Controller.h"
 
-namespace domotique {
-namespace process {
+namespace domotique{ namespace actor {
 
-Controller::Controller() {
+Controller::Controller(double influence) : _influence(influence){
 	// TODO Auto-generated constructor stub
 
 }
@@ -19,5 +18,4 @@ Controller::~Controller() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace process */
-} /* namespace domotique */
+}}

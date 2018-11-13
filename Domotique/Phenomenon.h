@@ -10,8 +10,7 @@
 
 #include "Actor.h"
 
-namespace domotique {
-namespace process {
+namespace domotique{ namespace actor {
 
 class Phenomenon: public Actor {
 private:
@@ -24,7 +23,5 @@ public:
 	virtual ~Phenomenon();
 };
 
-} /* namespace process */
-} /* namespace domotique */
-
+}}
 #endif /* PHENOMENON_H_ */

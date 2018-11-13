@@ -7,8 +7,7 @@
 
 #include "State.h"
 
-namespace domotique {
-namespace process {
+namespace domotique{ namespace actor {
 
 State::State(Phenomenon& phenomenon, Controller& controller)
 : _phenomenon(phenomenon), _controller(controller) {
@@ -19,5 +18,4 @@ State::~State() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace process */
-} /* namespace domotique */
+}}

@@ -7,8 +7,8 @@
 
 #include "Actor.h"
 
-namespace domotique {
-namespace process {
+namespace domotique{ namespace actor {
+
 
 Actor::Actor() {
 	// TODO Auto-generated constructor stub
@@ -19,5 +19,5 @@ Actor::~Actor() {
 	// TODO Auto-generated destructor stub
 }
 
-} /* namespace process */
-} /* namespace domotique */
+
+}}

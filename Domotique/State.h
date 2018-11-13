@@ -13,9 +13,7 @@
 #include "Phenomenon.h"
 #include "Controller.h"
 
-namespace domotique {
-namespace process {
-
+namespace domotique{ namespace actor {
 class State: public Actor {
 private:
 	Phenomenon& _phenomenon;
@@ -25,7 +23,6 @@ public:
 	virtual ~State();
 };
 
-} /* namespace process */
-} /* namespace domotique */
+}}
 
 #endif /* STATE_H_ */

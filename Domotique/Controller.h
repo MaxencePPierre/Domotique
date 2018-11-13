@@ -10,19 +10,17 @@
 
 #include "Actor.h"
 
-namespace domotique {
-namespace process {
+namespace domotique{ namespace actor {
 
 class Controller: public Actor {
 private:
 	double _influence;
 public:
 	double Influence();
-	Controller();
+	Controller(double influence);
 	virtual ~Controller();
 };
 
-} /* namespace process */
-} /* namespace domotique */
+}}
 
 #endif /* CONTROLLER_H_ */

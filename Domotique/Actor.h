@@ -8,8 +8,7 @@
 #ifndef ACTOR_H_
 #define ACTOR_H_
 
-namespace domotique {
-namespace process {
+namespace domotique{ namespace actor {
 
 class Actor {
 protected:
@@ -21,7 +20,6 @@ public:
 	virtual ~Actor();
 };
 
-} /* namespace process */
-} /* namespace domotique */
+}}
 
 #endif /* ACTOR_H_ */
