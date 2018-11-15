@@ -9,11 +9,6 @@
 
 namespace domotique{ namespace actor {
 
-double Controller::Influence()
-{
-	return _influence;
-}
-
 Controller::Controller(double influence) : _influence(influence){
 	// TODO Auto-generated constructor stub
 

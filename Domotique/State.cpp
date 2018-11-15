@@ -19,7 +19,7 @@ void State::Calculate()
 			+ ((_controller.Value() - oldvalue) * _controller.Influence());
 }
 
-State::State(Phenomenon& phenomenon, Controller& controller)
+State::State(const Phenomenon& phenomenon, const Controller& controller)
 : _phenomenon(phenomenon), _controller(controller) {
 	// TODO Auto-generated constructor stub
 }

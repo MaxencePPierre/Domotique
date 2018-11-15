@@ -15,7 +15,7 @@ void Threshold::Calculate()
 	_value = (phalue > _saturation) ? _saturation : phalue;
 }
 
-Threshold::Threshold(double influence, double saturation, Phenomenon& phenomenon)
+Threshold::Threshold(double influence, double saturation, const Phenomenon& phenomenon)
 : Controller(influence), _saturation(saturation), _phenomenon(phenomenon) {}
 
 Threshold::~Threshold() {}

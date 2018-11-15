@@ -16,13 +16,12 @@
 namespace domotique{ namespace actor {
 /**
  * \brief The state upon which the Phenomenon and Controller act
- *
- *
  */
 class State: public Actor {
+	//TODO: Add a longer description
 private:
-	Phenomenon& _phenomenon;
-	Controller& _controller;
+	const Phenomenon& _phenomenon;
+	const Controller& _controller;
 public:
 	/** Calculates the State's value for the current tick based on this formula:
 	 * \f{align*}{
@@ -42,7 +41,7 @@ public:
 	 * \param phenomenon Phenomenon that will act on the State; reference stored in \c _phenomenon.
 	 * \param controller Controller that will act on the State in response to the actions of the Phenomenon; reference stored in \c _controller.
 	 * */
-	State(Phenomenon& phenomenon, Controller& controller);
+	State(const Phenomenon& phenomenon, const Controller& controller);
 	virtual ~State();
 };
 

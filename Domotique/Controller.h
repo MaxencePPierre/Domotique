@@ -16,7 +16,7 @@ class Controller: public Actor {
 private:
 	double _influence;
 public:
-	double Influence();
+	double Influence() const { return _influence; }
 	Controller(double influence);
 	virtual ~Controller();
 };

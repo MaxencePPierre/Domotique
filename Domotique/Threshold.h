@@ -25,7 +25,7 @@ private:
 	double _saturation;
 
 	/// Phenomenon from which to take the value
-	Phenomenon& _phenomenon;
+	const Phenomenon& _phenomenon;
 public:
 	/// Formula: \f$value = min\{\text{Value}_{saturation}, \text{Value}_{phenomenon}\}\f$
 	void Calculate();
@@ -35,7 +35,7 @@ public:
 	 * \param saturation Copied to _saturation
 	 * \param phenomenon Copied to _phenomenon
 	 */
-	Threshold(double influence, double saturation, Phenomenon& phenomenon);
+	Threshold(double influence, double saturation, const Phenomenon& phenomenon);
 	virtual ~Threshold();
 };
 

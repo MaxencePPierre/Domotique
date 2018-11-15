@@ -22,7 +22,7 @@ public:
 	/// Calculates a new value each timestep based on each actor subtype's internal rules
 	virtual void Calculate() = 0;
 	/// Accessor method for the actor's internal value
-	double Value() { return _value; };
+	double Value() const { return _value; };
 	Actor();
 	virtual ~Actor();
 };

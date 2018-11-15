@@ -1,8 +1,8 @@
 /*
- * Random.h
+ * \file Random.h
  *
- *  Created on: 13 Nov 2018
- *      Author: pcoo34
+ *  \date 13 Nov 2018
+ *	\author pcoo34
  */
 
 #ifndef RANDOM_H_
@@ -18,11 +18,11 @@ class Random: public Phenomenon{
 private:
 	std::default_random_engine _generator;
 	std::uniform_real_distribution<double> _distribution;
-	double _valueLow;
-	double _valueHigh;
+	const double _valueLow;
+	const double _valueHigh;
 public:
 	void Calculate();
-	Random(double influence, double valueLow, double valueHigh);
+	Random(double influence, const double valueLow, const double valueHigh);
 	virtual ~Random();
 };
 

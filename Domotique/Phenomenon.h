@@ -18,7 +18,7 @@ private:
 protected:
 	double BoxMuller(double mu, double sigma);
 public:
-	double Influence();
+	double Influence() const { return _influence; }
 	Phenomenon(double influence);
 	virtual ~Phenomenon();
 };
