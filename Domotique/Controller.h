@@ -1,8 +1,8 @@
 /*
- * Controller.h
+ * \file Controller.h
  *
- *  Created on: 12 Nov 2018
- *      Author: pcoo34
+ * \date 12 Nov 2018
+ * \author pcoo34
  */
 
 #ifndef CONTROLLER_H_
