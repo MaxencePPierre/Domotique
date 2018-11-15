@@ -9,14 +9,19 @@
 #define THRESHOLD_H_
 
 #include "Controller.h"
+#include "Phenomenon.h"
 
 namespace domotique{ namespace actor{ namespace controller {
 
 class Threshold: public Controller {
 private:
 	double _saturation;
+
+	Phenomenon& _phenomenon;
 public:
-	Threshold(double influence, double saturation);
+	void Calculate();
+
+	Threshold(double influence, double saturation, Phenomenon& phenomenon);
 	virtual ~Threshold();
 };
 

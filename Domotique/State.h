@@ -19,6 +19,8 @@ private:
 	Phenomenon& _phenomenon;
 	Controller& _controller;
 public:
+	void Calculate();
+
 	State(Phenomenon& phenomenon, Controller& controller);
 	virtual ~State();
 };

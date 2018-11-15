@@ -9,13 +9,15 @@
 
 namespace domotique{ namespace actor{ namespace controller {
 
-Threshold::Threshold(double influence, double saturation) : Controller(influence), _saturation(saturation) {
-	// TODO Auto-generated constructor stub
-
+void Threshold::Calculate()
+{
+	double phalue = _phenomenon.Value();
+	_value = (phalue > _saturation) ? _saturation : phalue;
 }
 
-Threshold::~Threshold() {
-	// TODO Auto-generated destructor stub
-}
+Threshold::Threshold(double influence, double saturation, Phenomenon& phenomenon)
+: Controller(influence), _saturation(saturation), _phenomenon(phenomenon) {}
+
+Threshold::~Threshold() {}
 
 }}}

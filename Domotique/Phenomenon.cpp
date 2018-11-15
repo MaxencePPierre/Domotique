@@ -9,6 +9,11 @@
 
 namespace domotique{ namespace actor {
 
+double Phenomenon::Influence()
+{
+	return _influence;
+}
+
 Phenomenon::Phenomenon(double influence) : _influence(influence) {
 	// TODO Auto-generated constructor stub
 
