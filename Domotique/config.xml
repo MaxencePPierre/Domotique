@@ -1,0 +1,13 @@
+<simulation name="Phase One test simulation">
+	<process>
+		<phenomenon type="Random">
+			<influence>0.00001</influence>
+			<valueLow>-10</valueLow>
+			<valueHigh>10</valueHigh>
+		</phenomenon>
+		<controller type="Threshold">
+			<influence>0.9</influence>
+			<saturation>0.5</saturation>
+		</controller>
+	</process>
+</simulation>
