@@ -11,20 +11,30 @@
 
 #include "tinyxml2.h"
 
+#include "XmlParse.h"
+
 namespace domotique{ namespace actor {
 
 void State::Calculate()
 {
 	double oldvalue = _value;
 	_value = oldvalue
-			+ ((_phenomenon->Value() - oldvalue) * _influencePhenomenon)
-			+ ((_controller->Value() - oldvalue) * _influenceController);
+			+ ((_phenomenon->Value() - oldvalue) * _paramList[xml::XMLMap::Element::InfluencePhenomenon])
+			+ ((_controller->Value() - oldvalue) * _paramList[xml::XMLMap::Element::InfluenceController]);
 }
 
 State::State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, tinyxml2::XMLNode * node) : _phenomenon(phenomenon), _controller(controller)
 {
-	_influencePhenomenon = 0.1;
-	_influenceController = 0.5;
+	_requiredParams =
+	{
+			{"influencePhenomenon"	, xml::XMLMap::Element::InfluencePhenomenon},
+			{"influenceController"	, xml::XMLMap::Element::InfluenceController}
+	};
+	_optionalParams =
+	{
+
+	};
+	populate(node);
 }
 
 State::~State() {

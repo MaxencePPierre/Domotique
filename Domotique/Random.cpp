@@ -6,9 +6,6 @@
  */
 #include <vector>
 
-// DEBUG ONLY TODO: REMOVE THIS
-#include <iostream>
-
 #include "Random.h"
 #include "tinyxml2.h"
 #include "XmlParse.h"
@@ -23,14 +20,20 @@ void Random::Calculate()
 	_value = _distribution(_generator);
 }
 
+
 Random::Random(tinyxml2::XMLNode * node)
 {
-	_valueLow = 1;
-	_valueHigh = 10;
-}
+	_requiredParams =
+	{
+			{"valueHigh"	, XMLMap::Element::ValueHigh},
+			{"valueLow"		, XMLMap::Element::ValueLow}
+	};
+	_optionalParams =
+	{
 
-Random::Random(double valueLow, double valueHigh) : _valueLow(valueLow), _valueHigh(valueHigh) {
-	_distribution = std::uniform_real_distribution<double>(_valueLow, _valueHigh);
+	};
+	populate(node);
+	_distribution = std::uniform_real_distribution<double>(_paramList[XMLMap::Element::ValueLow], _paramList[XMLMap::Element::ValueHigh]);
 }
 
 Random::~Random() {

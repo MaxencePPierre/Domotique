@@ -26,8 +26,6 @@ class State: public Actor {
 private:
 	std::shared_ptr<Phenomenon> _phenomenon;
 	std::shared_ptr<Controller> _controller;
-	double _influencePhenomenon;
-	double _influenceController;
 public:
 	/** Calculates the State's value for the current tick based on this formula:
 	 * \f{align*}{
@@ -46,11 +44,8 @@ public:
 	/**
 	 * \param phenomenon Phenomenon that will act on the State; reference stored in \c _phenomenon.
 	 * \param controller Controller that will act on the State in response to the actions of the Phenomenon; reference stored in \c _controller.
-	 * \param iP Influence of Phenomenon
-	 * \param iC Influence of Controller
+	 * \param node XMLNode from which to gather parameters
 	 * */
-	State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, double iP, double iC)
-	: _phenomenon(phenomenon), _controller(controller), _influencePhenomenon(iP), _influenceController(iC) {}
 	State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, tinyxml2::XMLNode * node);
 	virtual ~State();
 

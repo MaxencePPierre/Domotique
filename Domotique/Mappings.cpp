@@ -9,7 +9,8 @@ namespace domotique{ namespace xml {
 			{Element::Phenomenon	, "phenomenon"},
 			{Element::Controller	, "controller"},
 			{Element::State			, "state"},
-			{Element::Influence		, "influence"},
+			{Element::InfluencePhenomenon, "influencePhenomenon"},
+			{Element::InfluenceController, "influenceController"},
 			{Element::ValueLow		, "valueLow"},
 			{Element::ValueHigh		, "valueHigh"},
 			{Element::Saturation	, "saturation"}

@@ -19,11 +19,8 @@ class Random: public Phenomenon{
 private:
 	std::default_random_engine _generator;
 	std::uniform_real_distribution<double> _distribution;
-	double _valueLow;
-	double _valueHigh;
 public:
 	void Calculate();
-	Random(const double valueLow, const double valueHigh);
 	Random(tinyxml2::XMLNode * node);
 	Random(Random* r){this->_distribution = r->_distribution;}
 	virtual ~Random();

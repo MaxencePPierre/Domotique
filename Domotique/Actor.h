@@ -8,6 +8,12 @@
 #ifndef ACTOR_H_
 #define ACTOR_H_
 
+#include <map>
+
+#include "tinyxml2.h"
+
+#include "XmlParse.h"
+
 namespace domotique{ namespace actor {
 
 /** \brief Base class for all actors in simulation
@@ -18,11 +24,15 @@ class Actor {
 protected:
 /// The value generated when Calculate() is called
 	double _value = 0;
+	std::map<const std::string, xml::XMLMap::Element> _requiredParams;
+	std::map<const std::string, xml::XMLMap::Element> _optionalParams;
+	std::map<xml::XMLMap::Element, double> _paramList;
 public:
 	/// Calculates a new value each timestep based on each actor subtype's internal rules
 	virtual void Calculate() = 0;
 	/// Accessor method for the actor's internal value
 	double Value() const { return _value; };
+	void populate(tinyxml2::XMLNode* node);
 	Actor();
 	virtual ~Actor();
 };

@@ -44,7 +44,7 @@ public:
 		/* Children */
 		Process, Phenomenon, Controller, State,
 		/* Parameters for controllers, phenomena and states*/
-		Influence, ValueLow, ValueHigh, Saturation
+		InfluencePhenomenon, InfluenceController, ValueLow, ValueHigh, Saturation
 	};
 	enum class Attributes
 	{

@@ -4,14 +4,14 @@
 	<process name="Temperature">
 		<phenomenon name="External Temperature" type="Random">
 			<valueLow>-10</valueLow>
-			<valueHigh>10</valueHigh>
+			<valueHigh>40</valueHigh>
 		</phenomenon>
 		<controller name="Heater/cooler" type="Threshold">
-			<saturation>0.5</saturation>
+			<saturation>21</saturation>
 		</controller>
 		<state name="Room" type="State">
-			<influencePhenom>0.00001</influencePhenom>
-			<influenceControl>0.9</influenceControl>
+			<influencePhenomenon>0.01</influencePhenomenon>
+			<influenceController>0.09</influenceController>
 		</state>
 	</process>
 	<server>

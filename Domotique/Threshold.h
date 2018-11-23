@@ -26,9 +26,9 @@ namespace domotique{ namespace actor{ namespace controller {
  */
 class Threshold: public Controller {
 private:
-	static std::map<const std::string, xml::XMLMap::Element> _requiredParams;
-	static std::map<const std::string, xml::XMLMap::Element> _optionalParams;
-	std::map<xml::XMLMap::Element, double> _paramList;
+//	static std::map<const std::string, xml::XMLMap::Element> _requiredParams;
+//	static std::map<const std::string, xml::XMLMap::Element> _optionalParams;
+//	std::map<xml::XMLMap::Element, double> _paramList;
 	/// Phenomenon from which to take the value
 	std::shared_ptr<Phenomenon> _phenomenon;
 public:
@@ -36,9 +36,9 @@ public:
 	void Calculate();
 
 	/**
+	 * \param node XMLNode which contains the parameters from which to construct the Threshold Controller
 	 * \param phenomenon Copied to _phenomenon
 	 */
-	Threshold(double saturation, std::shared_ptr<Phenomenon> phenomenon);
 	Threshold(tinyxml2::XMLNode * node, std::shared_ptr<Phenomenon> phenomenon);
 	/** Copy constructor
 	 * \brief Copies non-static members from t */

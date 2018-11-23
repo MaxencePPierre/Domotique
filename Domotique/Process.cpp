@@ -15,9 +15,6 @@
 #include "Threshold.h"
 #include "State.h"
 
-// TODO REMOVE THIS
-#include <iostream>
-
 using namespace tinyxml2;
 using namespace domotique::xml;
 namespace domotique { namespace process {
@@ -51,7 +48,6 @@ Process::Process(XMLNode * node)
 	{
 		//TODO: replace this with a factory
 		std::string typestr = child->ToElement()->FindAttribute(XMLMap::AttributeMap[XMLMap::Attributes::Type].c_str())->Value();
-		std::cout << typestr <<std::endl;
 		//TODO: add error checking to this
 		XMLMap::ElementType type = XMLMap::ElementTypeMap.at(typestr.c_str());
 
