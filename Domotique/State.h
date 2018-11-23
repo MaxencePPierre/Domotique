@@ -8,6 +8,8 @@
 #ifndef STATE_H_
 #define STATE_H_
 
+#include <memory>
+
 #include "Actor.h"
 
 #include "Phenomenon.h"
@@ -22,8 +24,8 @@ namespace domotique{ namespace actor {
 class State: public Actor {
 	//TODO: Add a longer description
 private:
-	const Phenomenon* _phenomenon;
-	const Controller* _controller;
+	std::shared_ptr<Phenomenon> _phenomenon;
+	std::shared_ptr<Controller> _controller;
 	double _influencePhenomenon;
 	double _influenceController;
 public:
@@ -47,9 +49,9 @@ public:
 	 * \param iP Influence of Phenomenon
 	 * \param iC Influence of Controller
 	 * */
-	State(const Phenomenon* phenomenon, const Controller* controller, double iP, double iC)
+	State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, double iP, double iC)
 	: _phenomenon(phenomenon), _controller(controller), _influencePhenomenon(iP), _influenceController(iC) {}
-	State(const Phenomenon* phenomenon, const Controller* controller, tinyxml2::XMLNode * node);
+	State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, tinyxml2::XMLNode * node);
 	virtual ~State();
 
 	State& operator=(const State& other)

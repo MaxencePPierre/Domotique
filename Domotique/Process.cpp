@@ -40,66 +40,40 @@ std::map<ActorType, double> Process::Values()
 
 Process::Process(XMLNode * node)
 {
-	XMLNode * controller, * phenomenon, * state;
-	controller	= node->FirstChildElement(xml::XMLMap::ElementMap.at(XMLMap::Element::Controller).c_str());
-	phenomenon	= node->FirstChildElement(xml::XMLMap::ElementMap.at(XMLMap::Element::Phenomenon).c_str());
-	state		= node->FirstChildElement(xml::XMLMap::ElementMap.at(XMLMap::Element::State).c_str());
-	if(!(controller || phenomenon || state))
+	std::vector<XMLNode *> children;
+	for(XMLNode * child = node->FirstChild(); child; child = child->NextSibling())
 	{
-		std::ostringstream s;
-		s	<< "Missing elements from process : ";
-		if(!controller) s << XMLMap::ElementMap.at(XMLMap::Element::Controller) << " ";
-		if(!phenomenon)	s << XMLMap::ElementMap.at(XMLMap::Element::Phenomenon) << " ";
-		if(!state) 		s << XMLMap::ElementMap.at(XMLMap::Element::State);
-		s	<< "\n";
-		throw XMLParseException(s.str().c_str(), __FILE__, __LINE__);
+		children.push_back(child);
+
 	}
 
-	XMLNode* children[] = {phenomenon, controller, state};
-	const unsigned N_CHILDREN = 3;
-	for(unsigned i = 0; i < N_CHILDREN; i++)
+	for(XMLNode* child : children)
 	{
 		//TODO: replace this with a factory
-		std::string typestr = children[i]->ToElement()->FindAttribute(XMLMap::AttributeMap[XMLMap::Attributes::Type].c_str())->Value();
-
+		std::string typestr = child->ToElement()->FindAttribute(XMLMap::AttributeMap[XMLMap::Attributes::Type].c_str())->Value();
+		std::cout << typestr <<std::endl;
 		//TODO: add error checking to this
 		XMLMap::ElementType type = XMLMap::ElementTypeMap.at(typestr.c_str());
 
-		//TODO Implement phenomenon first, then on to controller
+		//TODO Enforce phenomenon's declaration before controller ( only for initial dummy Threshold controller)
 		switch(type)
 		{ 	// TODO: maybe have three actor tags under each process tag
 			//			then can loop until controller, phenomenon and state are non null
 		case XMLMap::ElementType::Threshold:
-//			try{
-			std::cout << "Getting ready to create Threshold\n";
-			_controller = new domotique::actor::controller::Threshold(controller, _phenomenon);
-			std::cout << "Created Threshold controller\n";
-//			}
-//			catch (XMLParseException& e)
-//			{
-//				std::cout << e.what();
-//			}
+			_controller = std::make_shared<actor::controller::Threshold>(new actor::controller::Threshold(child, _phenomenon));
 			break;
 		case XMLMap::ElementType::Random:
-			_phenomenon = new domotique::actor::phenomenon::Random(phenomenon);
-			std::cout << "Created Random phenomenon\n";
+			_phenomenon = std::make_shared<actor::phenomenon::Random>(new domotique::actor::phenomenon::Random(child));
 			break;
 		case XMLMap::ElementType::State:
-			_state		= new domotique::actor::State(_phenomenon, _controller, state);
-			std::cout << "Created State\n";
+			_state.reset(new domotique::actor::State(_phenomenon, _controller, child));
 			break;
 		case XMLMap::ElementType::None:
 		default:
-			throw new XMLParseException("Type not recognised", __FILE__, __LINE__);
+			throw XMLParseException("Type not recognised", __FILE__, __LINE__);
 			break;
 		};
 	}
-}
-
-Process::Process(actor::Phenomenon* phenomeonon, actor::State* state, actor::Controller* controller)
-: _phenomenon(phenomeonon), _state(state), _controller(controller) {
-	// TODO Auto-generated constructor stub
-
 }
 
 Process::~Process() {

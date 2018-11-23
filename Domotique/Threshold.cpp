@@ -34,19 +34,17 @@ std::map<const std::string, xml::XMLMap::Element> Threshold::_optionalParams =
 };
 
 
-Threshold::Threshold(tinyxml2::XMLNode * node, const Phenomenon* phenomenon): _phenomenon(phenomenon)
+Threshold::Threshold(tinyxml2::XMLNode * node, std::shared_ptr<Phenomenon> phenomenon): _phenomenon(phenomenon)
 {
 	// Read all children ( i.e. parameters ) into vector for later processing
-	std::vector<XMLNode *> children;
-	for(XMLNode * child = node->FirstChild(); child; child = child->FirstChild())
+	std::vector<XMLElement *> children;
+	for(auto * child = node->FirstChildElement(); child; child = child->NextSiblingElement())
 		children.push_back(child);
 
 	// Attempt to read parameters into _paramList, matched with their values
-	for(auto childNode : children)
+	for(auto * child : children)
 	{
-		if(!childNode->ToElement())
-			break;
-		std::string elementName = childNode->ToElement()->Name();
+		std::string elementName = child->Name();
 		std::map<const std::string, XMLMap::Element>::iterator pm = _requiredParams.find(elementName);
 		if(_requiredParams.end() == pm)
 		{
@@ -62,7 +60,7 @@ Threshold::Threshold(tinyxml2::XMLNode * node, const Phenomenon* phenomenon): _p
 		if(0 < _paramList.count(pm->second))
 			throw XMLParseException("Parameter present multiple times",	__FILE__, __LINE__);
 
-		const char * textValue = childNode->ToElement()->GetText();
+		const char * textValue = child->GetText();
 		if(!textValue)
 			throw XMLParseException("Parameter has no value", __FILE__, __LINE__);
 
@@ -74,18 +72,23 @@ Threshold::Threshold(tinyxml2::XMLNode * node, const Phenomenon* phenomenon): _p
 	}
 
 	// Ensure all required parameters have been read
-	for(auto pair : _requiredParams)
+	for(auto required : _requiredParams)
 	{
-		auto search = _paramList.find(pair.second);
+		auto search = _paramList.find(required.second);
 		if(_paramList.end() == search)
 			throw XMLParseException("Required parameter not present", __FILE__, __LINE__);
 	}
 }
 
-Threshold::Threshold(double saturation, const Phenomenon* phenomenon) : _phenomenon(phenomenon) {
+Threshold::Threshold(double saturation, std::shared_ptr<Phenomenon> phenomenon) : _phenomenon(phenomenon) {
 	_paramList.insert(std::pair<XMLMap::Element, double>(XMLMap::Element::Saturation, saturation));
 }
-
+Threshold::Threshold(Threshold* t)
+{
+		this->_phenomenon = t->_phenomenon;
+		this->_paramList = t->_paramList;
+		this->_value = t->_value;
+}
 Threshold::~Threshold() {}
 
 }}}

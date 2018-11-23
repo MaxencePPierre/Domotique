@@ -8,6 +8,8 @@
 #ifndef THRESHOLD_H_
 #define THRESHOLD_H_
 
+#include <memory>
+
 #include "Controller.h"
 #include "Phenomenon.h"
 
@@ -28,7 +30,7 @@ private:
 	static std::map<const std::string, xml::XMLMap::Element> _optionalParams;
 	std::map<xml::XMLMap::Element, double> _paramList;
 	/// Phenomenon from which to take the value
-	const Phenomenon* _phenomenon;
+	std::shared_ptr<Phenomenon> _phenomenon;
 public:
 	/// Formula: \f$value = min\{\text{Value}_{saturation}, \text{Value}_{phenomenon}\}\f$
 	void Calculate();
@@ -36,8 +38,11 @@ public:
 	/**
 	 * \param phenomenon Copied to _phenomenon
 	 */
-	Threshold(double saturation, const Phenomenon * phenomenon);
-	Threshold(tinyxml2::XMLNode * node, const Phenomenon* phenomenon);
+	Threshold(double saturation, std::shared_ptr<Phenomenon> phenomenon);
+	Threshold(tinyxml2::XMLNode * node, std::shared_ptr<Phenomenon> phenomenon);
+	/** Copy constructor
+	 * \brief Copies non-static members from t */
+	Threshold(Threshold* t);
 	virtual ~Threshold();
 };
 

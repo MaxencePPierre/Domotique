@@ -25,6 +25,7 @@ public:
 	void Calculate();
 	Random(const double valueLow, const double valueHigh);
 	Random(tinyxml2::XMLNode * node);
+	Random(Random* r){this->_distribution = r->_distribution;}
 	virtual ~Random();
 };
 

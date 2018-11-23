@@ -21,7 +21,7 @@ void State::Calculate()
 			+ ((_controller->Value() - oldvalue) * _influenceController);
 }
 
-State::State(const Phenomenon* phenomenon, const Controller* controller, tinyxml2::XMLNode * node) : _phenomenon(phenomenon), _controller(controller)
+State::State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, tinyxml2::XMLNode * node) : _phenomenon(phenomenon), _controller(controller)
 {
 	_influencePhenomenon = 0.1;
 	_influenceController = 0.5;

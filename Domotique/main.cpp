@@ -32,7 +32,7 @@ int main(int argc, char * argv[])
 
 	try
 	{
-		process::Process proc = process::Process(
+		process::Process proc(
 				root->FirstChildElement(
 						xml::XMLMap::ElementMap
 						.at(xml::XMLMap::Element::Process)
