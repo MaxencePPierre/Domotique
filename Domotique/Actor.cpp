@@ -26,10 +26,12 @@ void Actor::populate(XMLNode * node) {
 	for(auto * child : children)
 	{
 		std::string elementName = child->Name();
-		std::map<const std::string, XMLMap::Element>::iterator pm = _requiredParams.find(elementName);
+//		std::map<const std::string, XMLMap::Element>::iterator pm = _requiredParams.find(elementName);
+
+		std::set<XMLMap::Element>::iterator pm = _requiredParams.find(XMLMap::ElementMap[elementName]);
 		if(_requiredParams.end() == pm)
 		{
-			pm = _optionalParams.find(elementName);
+			pm = _optionalParams.find(XMLMap::ElementMap[elementName]);
 			if(_optionalParams.end() == pm)
 			{
 				//parameter not in parameter list for this class
@@ -39,7 +41,7 @@ void Actor::populate(XMLNode * node) {
 			}
 		}
 		// check for multiple addition of parameters
-		if(0 < _paramList.count(pm->second))
+		if(0 < _paramList.count(XMLMap::ElementMap[elementName]))
 			throw XMLParseException("Parameter present multiple times",	__FILE__, __LINE__);
 
 		const char * textValue = child->GetText();
@@ -49,13 +51,13 @@ void Actor::populate(XMLNode * node) {
 		//TODO Generalise method below to include long integers
 		double value = std::stod(textValue);
 		// Add parameter to map
-		_paramList.insert(std::pair<XMLMap::Element, double>(pm->second, value));
+		_paramList.insert(std::pair<XMLMap::Element, double>(XMLMap::ElementMap[elementName], value));
 	}
 
 	// Ensure all required parameters have been read
 	for(auto required : _requiredParams)
 	{
-		auto search = _paramList.find(required.second);
+		auto search = _paramList.find(required);
 		if(_paramList.end() == search)
 			throw XMLParseException("Required parameter not present", __FILE__, __LINE__);
 	}

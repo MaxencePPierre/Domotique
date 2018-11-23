@@ -27,8 +27,8 @@ State::State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller>
 {
 	_requiredParams =
 	{
-			{"influencePhenomenon"	, xml::XMLMap::Element::InfluencePhenomenon},
-			{"influenceController"	, xml::XMLMap::Element::InfluenceController}
+			{xml::XMLMap::Element::InfluencePhenomenon},
+			{xml::XMLMap::Element::InfluenceController}
 	};
 	_optionalParams =
 	{

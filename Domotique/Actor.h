@@ -8,8 +8,7 @@
 #ifndef ACTOR_H_
 #define ACTOR_H_
 
-#include <map>
-
+#include <set>
 #include "tinyxml2.h"
 
 #include "XmlParse.h"
@@ -24,8 +23,8 @@ class Actor {
 protected:
 /// The value generated when Calculate() is called
 	double _value = 0;
-	std::map<const std::string, xml::XMLMap::Element> _requiredParams;
-	std::map<const std::string, xml::XMLMap::Element> _optionalParams;
+	std::set<xml::XMLMap::Element> _requiredParams;
+	std::set<xml::XMLMap::Element> _optionalParams;
 	std::map<xml::XMLMap::Element, double> _paramList;
 public:
 	/// Calculates a new value each timestep based on each actor subtype's internal rules

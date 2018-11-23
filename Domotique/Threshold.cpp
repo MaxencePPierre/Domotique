@@ -24,7 +24,7 @@ void Threshold::Calculate()
 Threshold::Threshold(tinyxml2::XMLNode * node, std::shared_ptr<Phenomenon> phenomenon): _phenomenon(phenomenon)
 {
 	_requiredParams = {
-			{"saturation",	XMLMap::Element::Saturation}
+			{XMLMap::Element::Saturation}
 	};
 	_optionalParams = {};
 	populate(node);

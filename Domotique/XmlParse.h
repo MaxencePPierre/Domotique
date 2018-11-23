@@ -55,7 +55,8 @@ public:
 	{
 		None, Random, Threshold, State
 	};
-	static std::map<Element, const std::string> ElementMap;
+	static std::map<XMLMap::Element, const std::string> BaseElementMap;
+	static std::map<const std::string, Element> ElementMap;
 
 	static std::map<Attributes, const std::string> AttributeMap;
 

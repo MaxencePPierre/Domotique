@@ -3,17 +3,19 @@
 #include "XmlParse.h"
 namespace domotique{ namespace xml {
 
-	std::map<XMLMap::Element, const std::string> XMLMap::ElementMap = {
-			{Element::Simulation	, "simulation"},
-			{Element::Process		, "process"},
-			{Element::Phenomenon	, "phenomenon"},
-			{Element::Controller	, "controller"},
-			{Element::State			, "state"},
-			{Element::InfluencePhenomenon, "influencePhenomenon"},
-			{Element::InfluenceController, "influenceController"},
-			{Element::ValueLow		, "valueLow"},
-			{Element::ValueHigh		, "valueHigh"},
-			{Element::Saturation	, "saturation"}
+	std::map<XMLMap::Element, const std::string> XMLMap::BaseElementMap = {
+			{Element::Simulation	, "simulation"	},
+			{Element::Process 		, "process"		}
+	};
+	std::map<const std::string, XMLMap::Element> XMLMap::ElementMap = {
+			{"phenomenon"		, Element::Phenomenon		},
+			{"controller"		, Element::Controller		},
+			{"state"			, Element::State			},
+			{"influencePhenomenon"	, Element::InfluencePhenomenon	},
+			{"influenceController"	, Element::InfluenceController	},
+			{"valueLow"			, Element::ValueLow			},
+			{"valueHigh"		, Element::ValueHigh		},
+			{"saturation"		, Element::Saturation		}
 	};
 
 	std::map<XMLMap::Attributes, const std::string> XMLMap::AttributeMap = {

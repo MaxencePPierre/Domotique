@@ -25,8 +25,8 @@ Random::Random(tinyxml2::XMLNode * node)
 {
 	_requiredParams =
 	{
-			{"valueHigh"	, XMLMap::Element::ValueHigh},
-			{"valueLow"		, XMLMap::Element::ValueLow}
+			{XMLMap::Element::ValueHigh},
+			{XMLMap::Element::ValueLow}
 	};
 	_optionalParams =
 	{

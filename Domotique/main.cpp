@@ -34,7 +34,7 @@ int main(int argc, char * argv[])
 	{
 		process::Process proc(
 				root->FirstChildElement(
-						xml::XMLMap::ElementMap
+						xml::XMLMap::BaseElementMap
 						.at(xml::XMLMap::Element::Process)
 						.c_str()
 				)
