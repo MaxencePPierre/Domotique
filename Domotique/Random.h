@@ -11,6 +11,7 @@
 #include <random>
 
 #include "Phenomenon.h"
+#include "tinyxml2.h"
 
 namespace domotique { namespace actor { namespace phenomenon {
 
@@ -18,11 +19,12 @@ class Random: public Phenomenon{
 private:
 	std::default_random_engine _generator;
 	std::uniform_real_distribution<double> _distribution;
-	const double _valueLow;
-	const double _valueHigh;
+	double _valueLow;
+	double _valueHigh;
 public:
 	void Calculate();
-	Random(double influence, const double valueLow, const double valueHigh);
+	Random(const double valueLow, const double valueHigh);
+	Random(tinyxml2::XMLNode * node);
 	virtual ~Random();
 };
 

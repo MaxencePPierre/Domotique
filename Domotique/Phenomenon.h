@@ -9,17 +9,16 @@
 #define PHENOMENON_H_
 
 #include "Actor.h"
+#include "tinyxml2.h"
 
 namespace domotique{ namespace actor {
 
 class Phenomenon: public Actor {
-private:
-	double _influence;
 protected:
 	double BoxMuller(double mu, double sigma);
 public:
-	double Influence() const { return _influence; }
-	Phenomenon(double influence);
+	Phenomenon(tinyxml2::XMLNode *);
+	Phenomenon();
 	virtual ~Phenomenon();
 };
 

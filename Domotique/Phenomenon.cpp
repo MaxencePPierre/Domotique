@@ -7,11 +7,16 @@
 
 #include "Phenomenon.h"
 
+#include "tinyxml2.h"
+
 namespace domotique{ namespace actor {
 
-Phenomenon::Phenomenon(double influence) : _influence(influence) {
-	// TODO Auto-generated constructor stub
+Phenomenon::Phenomenon(tinyxml2::XMLNode *)
+{
+}
 
+Phenomenon::Phenomenon() {
+	// TODO Auto-generated constructor stub
 }
 
 Phenomenon::~Phenomenon() {

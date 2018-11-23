@@ -11,6 +11,9 @@
 #include "Controller.h"
 #include "Phenomenon.h"
 
+#include "XmlParse.h"
+#include "tinyxml2.h"
+
 namespace domotique{ namespace actor{ namespace controller {
 
 /**
@@ -21,21 +24,20 @@ namespace domotique{ namespace actor{ namespace controller {
  */
 class Threshold: public Controller {
 private:
-	/// Upper bound for the controller's generated value
-	double _saturation;
-
+	static std::map<const std::string, xml::XMLMap::Element> _requiredParams;
+	static std::map<const std::string, xml::XMLMap::Element> _optionalParams;
+	std::map<xml::XMLMap::Element, double> _paramList;
 	/// Phenomenon from which to take the value
-	const Phenomenon& _phenomenon;
+	const Phenomenon* _phenomenon;
 public:
 	/// Formula: \f$value = min\{\text{Value}_{saturation}, \text{Value}_{phenomenon}\}\f$
 	void Calculate();
 
 	/**
-	 * \param influence Passed to superclass's constructor
-	 * \param saturation Copied to _saturation
 	 * \param phenomenon Copied to _phenomenon
 	 */
-	Threshold(double influence, double saturation, const Phenomenon& phenomenon);
+	Threshold(double saturation, const Phenomenon * phenomenon);
+	Threshold(tinyxml2::XMLNode * node, const Phenomenon* phenomenon);
 	virtual ~Threshold();
 };
 

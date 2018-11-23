@@ -10,6 +10,8 @@
 
 #include <map>
 
+#include "tinyxml2.h"
+
 #include "Phenomenon.h"
 #include "Controller.h"
 #include "State.h"
@@ -20,13 +22,14 @@ enum ActorType { Phenomenon, Controller, State };
 
 class Process {
 private:
-	actor::Phenomenon& _phenomenon;
-	actor::State& _state;
-	actor::Controller& _controller;
+	actor::Phenomenon* _phenomenon;
+	actor::State* _state;
+	actor::Controller* _controller;
 public:
 	void CalculateAll();
 	std::map<ActorType, double> Values();
-	Process(actor::Phenomenon& phenomenon, actor::State& state, actor::Controller& controller);
+	Process(actor::Phenomenon* phenomenon, actor::State* state, actor::Controller* controller);
+	Process(tinyxml2::XMLNode *node);
 	virtual ~Process();
 };
 

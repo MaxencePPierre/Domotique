@@ -9,15 +9,14 @@
 #define CONTROLLER_H_
 
 #include "Actor.h"
+#include "tinyxml2.h"
 
 namespace domotique{ namespace actor {
 
 class Controller: public Actor {
-private:
-	double _influence;
 public:
-	double Influence() const { return _influence; }
-	Controller(double influence);
+	Controller(tinyxml2::XMLNode * node);
+	Controller();
 	virtual ~Controller();
 };
 

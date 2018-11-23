@@ -6,10 +6,11 @@
  */
 
 #include "Controller.h"
+#include "tinyxml2.h"
 
 namespace domotique{ namespace actor {
 
-Controller::Controller(double influence) : _influence(influence){
+Controller::Controller() {
 	// TODO Auto-generated constructor stub
 
 }

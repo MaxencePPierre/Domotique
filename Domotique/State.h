@@ -13,6 +13,8 @@
 #include "Phenomenon.h"
 #include "Controller.h"
 
+#include "tinyxml2.h"
+
 namespace domotique{ namespace actor {
 /**
  * \brief The state upon which the Phenomenon and Controller act
@@ -20,8 +22,10 @@ namespace domotique{ namespace actor {
 class State: public Actor {
 	//TODO: Add a longer description
 private:
-	const Phenomenon& _phenomenon;
-	const Controller& _controller;
+	const Phenomenon* _phenomenon;
+	const Controller* _controller;
+	double _influencePhenomenon;
+	double _influenceController;
 public:
 	/** Calculates the State's value for the current tick based on this formula:
 	 * \f{align*}{
@@ -40,9 +44,22 @@ public:
 	/**
 	 * \param phenomenon Phenomenon that will act on the State; reference stored in \c _phenomenon.
 	 * \param controller Controller that will act on the State in response to the actions of the Phenomenon; reference stored in \c _controller.
+	 * \param iP Influence of Phenomenon
+	 * \param iC Influence of Controller
 	 * */
-	State(const Phenomenon& phenomenon, const Controller& controller);
+	State(const Phenomenon* phenomenon, const Controller* controller, double iP, double iC)
+	: _phenomenon(phenomenon), _controller(controller), _influencePhenomenon(iP), _influenceController(iC) {}
+	State(const Phenomenon* phenomenon, const Controller* controller, tinyxml2::XMLNode * node);
 	virtual ~State();
+
+	State& operator=(const State& other)
+	{
+	    if (this != &other) {
+	        _phenomenon = other._phenomenon;
+	        _controller = other._controller;
+	    }
+	    return *this;
+	}
 };
 
 }}

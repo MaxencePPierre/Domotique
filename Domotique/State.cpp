@@ -9,19 +9,22 @@
 #include "Phenomenon.h"
 #include "Controller.h"
 
+#include "tinyxml2.h"
+
 namespace domotique{ namespace actor {
 
 void State::Calculate()
 {
 	double oldvalue = _value;
 	_value = oldvalue
-			+ ((_phenomenon.Value() - oldvalue) * _phenomenon.Influence())
-			+ ((_controller.Value() - oldvalue) * _controller.Influence());
+			+ ((_phenomenon->Value() - oldvalue) * _influencePhenomenon)
+			+ ((_controller->Value() - oldvalue) * _influenceController);
 }
 
-State::State(const Phenomenon& phenomenon, const Controller& controller)
-: _phenomenon(phenomenon), _controller(controller) {
-	// TODO Auto-generated constructor stub
+State::State(const Phenomenon* phenomenon, const Controller* controller, tinyxml2::XMLNode * node) : _phenomenon(phenomenon), _controller(controller)
+{
+	_influencePhenomenon = 0.1;
+	_influenceController = 0.5;
 }
 
 State::~State() {
