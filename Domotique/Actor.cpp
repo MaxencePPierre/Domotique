@@ -1,8 +1,8 @@
 /*
- * Actor.cpp
+ * \file Actor.cpp
  *
- *  Created on: 13 Nov 2018
- *      Author: pcoo34
+ * \date 13 Nov 2018
+ * \author pcoo34
  */
 #include <sstream>
 #include <map>
@@ -25,23 +25,21 @@ void Actor::populate(XMLNode * node) {
 	// Attempt to read parameters into _paramList, matched with their values
 	for(auto * child : children)
 	{
-		std::string elementName = child->Name();
-//		std::map<const std::string, XMLMap::Element>::iterator pm = _requiredParams.find(elementName);
-
-		std::set<XMLMap::Element>::iterator pm = _requiredParams.find(XMLMap::ElementMap[elementName]);
+		XMLMap::Element element = XMLMap::ElementMap[child->Name()];
+		std::set<XMLMap::Element>::iterator pm = _requiredParams.find(element);
 		if(_requiredParams.end() == pm)
 		{
-			pm = _optionalParams.find(XMLMap::ElementMap[elementName]);
+			pm = _optionalParams.find(element);
 			if(_optionalParams.end() == pm)
 			{
 				//parameter not in parameter list for this class
 				std::stringstream s;
-				s << "Parameter " << elementName << " not in parameter list";
+				s << "Parameter " << child->Name() << " not in parameter list";
 				throw XMLParseException(s.str().c_str(), __FILE__, __LINE__);
 			}
 		}
 		// check for multiple addition of parameters
-		if(0 < _paramList.count(XMLMap::ElementMap[elementName]))
+		if(0 < _paramList.count(element))
 			throw XMLParseException("Parameter present multiple times",	__FILE__, __LINE__);
 
 		const char * textValue = child->GetText();
@@ -51,7 +49,7 @@ void Actor::populate(XMLNode * node) {
 		//TODO Generalise method below to include long integers
 		double value = std::stod(textValue);
 		// Add parameter to map
-		_paramList.insert(std::pair<XMLMap::Element, double>(XMLMap::ElementMap[elementName], value));
+		_paramList.insert(std::pair<XMLMap::Element, double>(element, value));
 	}
 
 	// Ensure all required parameters have been read
