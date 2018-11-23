@@ -36,14 +36,17 @@ std::map<const std::string, xml::XMLMap::Element> Threshold::_optionalParams =
 
 Threshold::Threshold(tinyxml2::XMLNode * node, const Phenomenon* phenomenon): _phenomenon(phenomenon)
 {
-	std::vector<XMLNode *> params;
-	XMLNode * param;
-	for(param = node->FirstChild(); param; param = param->FirstChild())
-		params.push_back(param);
+	// Read all children ( i.e. parameters ) into vector for later processing
+	std::vector<XMLNode *> children;
+	for(XMLNode * child = node->FirstChild(); child; child = child->FirstChild())
+		children.push_back(child);
 
-	for(auto n = params.begin(); n != params.end() && NULL != (*n)->ToElement(); n++)
+	// Attempt to read parameters into _paramList, matched with their values
+	for(auto childNode : children)
 	{
-		std::string elementName = (*n)->ToElement()->Name();
+		if(!childNode->ToElement())
+			break;
+		std::string elementName = childNode->ToElement()->Name();
 		std::map<const std::string, XMLMap::Element>::iterator pm = _requiredParams.find(elementName);
 		if(_requiredParams.end() == pm)
 		{
@@ -59,13 +62,23 @@ Threshold::Threshold(tinyxml2::XMLNode * node, const Phenomenon* phenomenon): _p
 		if(0 < _paramList.count(pm->second))
 			throw XMLParseException("Parameter present multiple times",	__FILE__, __LINE__);
 
-		const char * textValue = (*n)->ToElement()->GetText();
+		const char * textValue = childNode->ToElement()->GetText();
 		if(!textValue)
 			throw XMLParseException("Parameter has no value", __FILE__, __LINE__);
+
+		//TODO Generalise method below to include long integers
 		double value = std::stod(textValue);
 		// Add parameter to map
 		_paramList.insert(std::pair<XMLMap::Element, double>(pm->second, value));
-		std::cout << "Found parameter " << _paramList[pm->second] << ", " << value << std::endl;
+		std::cout << "Found parameter (" << elementName << ", " << value << ")" << std::endl;
+	}
+
+	// Ensure all required parameters have been read
+	for(auto pair : _requiredParams)
+	{
+		auto search = _paramList.find(pair.second);
+		if(_paramList.end() == search)
+			throw XMLParseException("Required parameter not present", __FILE__, __LINE__);
 	}
 }
 
