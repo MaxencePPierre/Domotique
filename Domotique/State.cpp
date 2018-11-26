@@ -11,7 +11,7 @@
 
 #include "tinyxml2.h"
 
-#include "XmlParse.h"
+#include "XMLMappings.h"
 
 namespace domotique{ namespace actor {
 

@@ -1,11 +1,13 @@
 #include <map>
 #include <string>
-#include "XmlParse.h"
+
+#include "XMLMappings.h"
 namespace domotique{ namespace xml {
 
 	std::map<XMLMap::Element, const std::string> XMLMap::BaseElementMap = {
 			{Element::Simulation	, "simulation"	},
-			{Element::Process 		, "process"		}
+			{Element::Process 		, "process"		},
+			{Element::Runner 		, "runner"		}
 	};
 	std::map<const std::string, XMLMap::Element> XMLMap::ElementMap = {
 			{"phenomenon"		, Element::Phenomenon		},
@@ -15,7 +17,8 @@ namespace domotique{ namespace xml {
 			{"influenceController"	, Element::InfluenceController	},
 			{"valueLow"			, Element::ValueLow			},
 			{"valueHigh"		, Element::ValueHigh		},
-			{"saturation"		, Element::Saturation		}
+			{"saturation"		, Element::Saturation		},
+			{"ticks"			, Element::Ticks		}
 	};
 
 	std::map<XMLMap::Attributes, const std::string> XMLMap::AttributeMap = {

@@ -1,7 +1,8 @@
-/.metadata/
+.metadata/
 Debug
 Release
 
 Domotique/.settings
 Domotique/html
 Domotique/latex
+Domotique/log

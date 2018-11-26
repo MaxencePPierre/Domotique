@@ -13,8 +13,8 @@
 #include "Controller.h"
 #include "Phenomenon.h"
 
-#include "XmlParse.h"
 #include "tinyxml2.h"
+#include "XMLMappings.h"
 
 namespace domotique{ namespace actor{ namespace controller {
 

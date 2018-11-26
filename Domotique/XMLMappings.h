@@ -4,8 +4,8 @@
  * \author pcoo34
  */
 
-#ifndef DOMOTIQUEXMLPARSE_H_
-#define DOMOTIQUEXMLPARSE_H_
+#ifndef XMLMAPPINGS_H_
+#define XMLMAPPINGS_H_
 
 #include <map>
 #include <string>
@@ -42,9 +42,13 @@ public:
 		/* Root element */
 		Simulation,
 		/* Children */
-		Process, Phenomenon, Controller, State,
+		Process, Runner,
+		/* Grandchildren */
+		Phenomenon, Controller, State,
 		/* Parameters for controllers, phenomena and states*/
-		InfluencePhenomenon, InfluenceController, ValueLow, ValueHigh, Saturation
+		InfluencePhenomenon, InfluenceController, ValueLow, ValueHigh, Saturation,
+		/* Parameters for the control classes of Server and Runner */
+		Ticks
 	};
 	enum class Attributes
 	{

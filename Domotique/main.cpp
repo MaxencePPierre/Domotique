@@ -5,87 +5,33 @@
 #include "Process.h"
 #include "Runner.h"
 #include "Server.h"
-#include "XmlParse.h"
 #include "tinyxml2.h"
+#include "XMLMappings.h"
 
 using namespace domotique;
 using namespace tinyxml2;
 
-/*
- * IMPLEMENT TWO MAPPINGS IN EACH LEAF CLASS OF Actor
- * std::map<std::string, XMLMap::Element> _requiredParams;
- * std::map<std::string, XMLMap::Element> _optionalParams;
- * std::map<XMLMap::Element, T> _paramList;
- * Trialling this in Threshold
- * */
-
-int main(int argc, char * argv[])
-{
-	if(argc < 2) {
+int main(int argc, char * argv[]) {
+	if (argc < 2) {
 		std::cout << "Usage: " << argv[0] << " filename" << std::endl;
 		return -1;
 	}
 	std::string configFileName = argv[1];
-	std::cout << "Reading simulation parameters from " << configFileName << std::endl;
-
+	std::cout << "Reading simulation parameters from " << configFileName
+			<< std::endl;
 
 	runner::Runner r;
-	try{
+	try {
 		r = runner::Runner(configFileName);
+	} catch (xml::XMLParseException& x) {
+		std::cerr << "XMLParseException caught in " << x.FileName() << ":"
+				<< x.LineNo() << "\n\t" << x.what() << std::endl;
+		std::cerr << "Fatal error, must exit" << std::endl;
+	} catch (std::exception& e) {
+		std::cerr << "Ex caught: " << e.what();
 	}
-	catch (xml::XMLParseException& x)
-			{
-				std::cout << "XMLParseException caught in " << x.FileName() << ":" << x.LineNo() << "\n\t" << x.what() << std::endl;
-				std::cout << "Fatal error, must exit" << std::endl;
-			}
-			catch (std::exception& e)
-			{
-				std::cout << "Ex caught: " << e.what();
-			}
 
-			r.run(5);
-
-	//monServer.dataLog(12.6, 0);
-	//monServer.dataLog(98.3, 1);
-
-
-	/*
-	try
-	{
-		process::Process proc(
-				root->FirstChildElement(
-						xml::XMLMap::BaseElementMap
-						.at(xml::XMLMap::Element::Process)
-						.c_str()
-				)
-				);
-		std::cout << "#\tState\tPhen\tControl\n";
-		for(int i = 0; i < 10; i++)
-		{
-			proc.CalculateAll();
-			std::cout << i << "\t"
-					<< proc.Values()[process::ActorType::State] << "\t"
-					<< proc.Values()[process::ActorType::Phenomenon] << "\t"
-					<< proc.Values()[process::ActorType::Controller]
-					<< std::endl;
-
-			monServer.dataLog(proc, 0, i);
-
-
-		}
-	}
-	catch (xml::XMLParseException& x)
-	{
-		std::cout << "XMLParseException caught in " << x.FileName() << ":" << x.LineNo() << "\n\t" << x.what() << std::endl;
-		std::cout << "Fatal error, must exit" << std::endl;
-		return -1;
-	}
-	catch (std::exception& e)
-	{
-		std::cout << "Ex caught: " << e.what();
-	}*/
-
-
+	r.run();
 
 	return 0;
 }

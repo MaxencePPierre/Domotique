@@ -8,7 +8,8 @@
 
 #include "Random.h"
 #include "tinyxml2.h"
-#include "XmlParse.h"
+#include "XMLMappings.h"
+#include "XMLParseable.h"
 
 using namespace tinyxml2;
 using namespace domotique::xml;

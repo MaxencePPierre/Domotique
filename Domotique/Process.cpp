@@ -10,10 +10,10 @@
 
 #include "Process.h"
 #include "tinyxml2.h"
-#include "XmlParse.h"
 #include "Random.h"
 #include "Threshold.h"
 #include "State.h"
+#include "XMLMappings.h"
 
 using namespace tinyxml2;
 using namespace domotique::xml;

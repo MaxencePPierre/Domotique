@@ -7,9 +7,8 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "XmlParse.h"
-
 #include "Threshold.h"
+#include "XMLMappings.h"
 
 using namespace domotique::xml;
 using namespace tinyxml2;

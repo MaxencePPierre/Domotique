@@ -12,14 +12,17 @@
 
 #include "Server.h"
 #include "Process.h"
+#include "XMLParseable.h"
 
-namespace domotique { namespace runner {
+namespace domotique {
+namespace runner {
 
-class Runner {
+class Runner : public xml::XMLParseable {
 private:
 	std::vector<process::Process *> _triplets;
 
 	server::Server _monServer;
+	unsigned _ticks = 0;
 
 public:
 	Runner(std::string configFileName);
@@ -29,12 +32,11 @@ public:
 	// Attributes
 	server::Server _server;
 
-
-
 	// Functions
-	void run(unsigned n);
+	void run();
 };
 
-}}
+}
+}
 
 #endif /* RUNNER_H_ */
