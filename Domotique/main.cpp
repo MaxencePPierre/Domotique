@@ -3,6 +3,7 @@
 #include <exception>
 
 #include "Process.h"
+#include "Runner.h"
 #include "Server.h"
 #include "XmlParse.h"
 #include "tinyxml2.h"
@@ -27,19 +28,28 @@ int main(int argc, char * argv[])
 	std::string configFileName = argv[1];
 	std::cout << "Reading simulation parameters from " << configFileName << std::endl;
 
-	Server monServer = Server();
 
-	monServer.initLog(0);
-	monServer.initLog(1);
+	runner::Runner r;
+	try{
+		r = runner::Runner(configFileName);
+	}
+	catch (xml::XMLParseException& x)
+			{
+				std::cout << "XMLParseException caught in " << x.FileName() << ":" << x.LineNo() << "\n\t" << x.what() << std::endl;
+				std::cout << "Fatal error, must exit" << std::endl;
+			}
+			catch (std::exception& e)
+			{
+				std::cout << "Ex caught: " << e.what();
+			}
+
+			r.run(5);
+
+	//monServer.dataLog(12.6, 0);
+	//monServer.dataLog(98.3, 1);
 
 
-	monServer.dataLog(12.6, 0);
-	monServer.dataLog(98.3, 1);
-
-	XMLDocument config;
-	config.LoadFile(configFileName.c_str());
-	XMLElement* root = config.RootElement();
-
+	/*
 	try
 	{
 		process::Process proc(
@@ -58,6 +68,10 @@ int main(int argc, char * argv[])
 					<< proc.Values()[process::ActorType::Phenomenon] << "\t"
 					<< proc.Values()[process::ActorType::Controller]
 					<< std::endl;
+
+			monServer.dataLog(proc, 0, i);
+
+
 		}
 	}
 	catch (xml::XMLParseException& x)
@@ -69,8 +83,9 @@ int main(int argc, char * argv[])
 	catch (std::exception& e)
 	{
 		std::cout << "Ex caught: " << e.what();
-	}
+	}*/
+
+
 
 	return 0;
 }
->>>>>>> tiarnach-process

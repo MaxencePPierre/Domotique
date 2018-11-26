@@ -10,13 +10,24 @@
 
 #include <iostream>
 #include <string>
-using namespace std;
+#include <vector>
+//using namespace std;
 #include <fstream>
+#include "Process.h"
+
+namespace domotique { namespace server {
+
+
+const std::string end("\n");
+const std::string tab("\t");
 
 class Server {
+private:
+	std::vector<std::string> filenames;
+
 public:
 	Server();
-	Server(string file);
+	Server(std::string file);
 	virtual ~Server();
 
 	// Attributes
@@ -26,10 +37,10 @@ public:
 	//string getLogFile();
 	//void setLogFile(string fileName);
 	void initLog(int triplet);
-	void dataLog(double data, int triplet);
+	void dataLog(domotique::process::Process& triplet, int process, int tick);
 
 
 
 };
-
+}}
 #endif /* SERVER_H_ */

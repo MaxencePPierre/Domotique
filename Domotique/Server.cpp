@@ -7,17 +7,22 @@
 
 #include "Server.h"
 
-string end = string("\n");
-string tab = string("	");
+#include <vector>
 
+using namespace std;
+
+namespace domotique { namespace server {
 
 Server::Server() {
+	filenames.push_back("Process_A");
+	filenames.push_back("Process_B");
 	//logFile("")
 }
 /*
 Server::Server(string fileName) :
 	logFile(fileName)
 {}*/
+
 Server::~Server() {
 	// TODO Auto-generated destructor stub
 }
@@ -34,14 +39,14 @@ void Server::setLogFile(string fileName) {
 void Server::initLog(int triplet) {
 
 	string folder = "../log/";
-	string fileName;
+	string fileName = filenames[triplet];
 
-	if(triplet == 0) {
+	/*if(triplet == 0) {
 		fileName = "Process A";
 	}
 	else {
 		fileName = "Process B";
-	}
+	}*/
 
 	string path = string(folder) + string(fileName) + string(".txt");
 	cout << "Writing into : " << path << endl;
@@ -50,34 +55,41 @@ void Server::initLog(int triplet) {
 
 	ofstream myfile;
 	myfile.open (path.c_str());//, ios::out | ios::app | ios::binary);
-	myfile << fileName + end;
+	myfile << "#" + fileName + domotique::server::end;
 	myfile << metadata;
 	myfile.close();
 
 	cout << path << " have been initialized." << endl;
 }
 
-void Server::dataLog(double data, int triplet) {
+void Server::dataLog(domotique::process::Process& triplet, int process, int tick) {
+
+
 
 	string folder = "../log/";
-	string fileName;
+	string fileName = filenames[process] ;
 
-	if(triplet == 0) {
-		fileName = "Process A";
+	/*if(triplet == 0) {
+		fileName = "Process_A";
 	}
 	else {
-		fileName = "Process B";
-	}
+		fileName = "Process_B";
+	}*/
 	string path = string(folder) + string(fileName)  + string(".txt");
 	cout << "Writing into : " << path << endl;
 
+
+
 	ofstream myfile;
 	myfile.open (path.c_str(), ios::out | ios::app | ios::binary);
-	myfile << data;
+	myfile 	<< tick << "\t\t"
+			<< triplet.Values()[process::ActorType::State] << "\t"
+			<< triplet.Values()[process::ActorType::Phenomenon] << "\t"
+			<< triplet.Values()[process::ActorType::Controller] << "\n";
 	myfile.close();
 
 	cout << path << "Data have been added to : " << path << endl;
 
 }
 
-
+}}
