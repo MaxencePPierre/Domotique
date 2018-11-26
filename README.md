@@ -1,2 +1,2 @@
 # Domotique
-Project domotique EPFL
+Project domotique EPFL.
