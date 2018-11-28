@@ -9,9 +9,8 @@
 
 #include <vector>
 
-
+#include <iomanip>
 #include <fstream>
-#include <utility>
 #include <string>
 
 using namespace std;
@@ -19,16 +18,13 @@ using namespace std;
 namespace domotique {
 namespace server {
 
-Server::Server() {
-	cout << "Server constructor called\n";
-}
+Server::Server() {}
 
 Server::Server(std::string fileName) {
 
 	filenames.push_back("Process_A");
 	filenames.push_back("Process_B");
 
-	cout << "Server constructor called with argument " << fileName;
 	string folder = "log/";
 	const string metadata = "# Tick	\tState	\tPhen	\tCtrl\n";
 
@@ -37,7 +33,6 @@ Server::Server(std::string fileName) {
 
 		logFileStreams.emplace_back(std::shared_ptr<std::ofstream>(new ofstream(path.c_str(), ios::out | ios::trunc )));
 		*logFileStreams.back() << "#" + name + domotique::server::end << metadata;
-		cout << "#" + name + domotique::server::end << metadata;
 
 		cout << "Opening " << path << " for writing." << endl;
 	}
@@ -59,15 +54,11 @@ Server::~Server() {
  }*/
 
 void Server::dataLog(domotique::process::Process& triplet, int process, int tick) {
-	cout << "Writing into : " << process << "\n";
-	(*logFileStreams.at(process)) << tick << "\t\t"
-			<< triplet.Values()[process::ActorType::State] << "\t"
-			<< triplet.Values()[process::ActorType::Phenomenon] << "\t"
+//	cout << "Writing into : " << process << "\n";
+	(*logFileStreams.at(process)) << tick << "\t\t" << std::setw(fieldWidth)
+			<< triplet.Values()[process::ActorType::State] << "\t" << std::setw(fieldWidth)
+			<< triplet.Values()[process::ActorType::Phenomenon] << "\t" << std::setw(fieldWidth)
 			<< triplet.Values()[process::ActorType::Controller] << "\n";
-	cout << tick << "\t\t"
-				<< triplet.Values()[process::ActorType::State] << "\t"
-				<< triplet.Values()[process::ActorType::Phenomenon] << "\t"
-				<< triplet.Values()[process::ActorType::Controller] << "\n";
 
 }
 

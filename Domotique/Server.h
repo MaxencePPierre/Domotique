@@ -24,6 +24,8 @@ const std::string tab("\t");
 
 class Server {
 private:
+	const int fieldWidth = 8;
+
 	std::vector<std::string> filenames;
 	std::vector<std::shared_ptr<std::ofstream>> logFileStreams;
 
