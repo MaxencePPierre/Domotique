@@ -15,7 +15,7 @@
 		</state>
 	</process>
 	<runner>
-		<ticks>20</ticks>
+		<ticks>3</ticks>
 	</runner>
 	<process name="Flooding">
 		<phenomenon name="Water height" type="Random">
@@ -23,7 +23,7 @@
 			<valueHigh>40</valueHigh>
 		</phenomenon>
 		<controller name="Lock" type="Threshold">
-			<saturation>20</saturation>
+			<saturation>5</saturation>
 		</controller>
 		<state name="Canal" type="State">
 			<influencePhenomenon>0.001</influencePhenomenon>

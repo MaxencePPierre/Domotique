@@ -35,9 +35,7 @@ Runner::Runner(std::string configFileName) {
 	{
 		children.push_back(child);
 	}
-	int i = 0;
 	for (auto * child : children) {
-		_monServer.initLog(i++);
 		_triplets.push_back(new process::Process(child));
 	}
 	_requiredParams =
@@ -52,6 +50,9 @@ Runner::Runner(std::string configFileName) {
 	if (!runnerNode)
 		throw xml::XMLParseException("Necessary element not found", __FILE__, __LINE__);
 	populate(runnerNode);
+
+	// is unique pointer now, destructor called at destruction of this class
+	_monServer = std::unique_ptr<server::Server>(new server::Server("domotique.log"));
 }
 
 Runner::~Runner() {
@@ -65,7 +66,7 @@ void Runner::run() {
 	for (unsigned i = 0; i < _paramList[xml::XMLMap::Element::Ticks]; i++) {
 		for (unsigned p = 0; p < _triplets.size(); p++) {
 			_triplets[p]->CalculateAll();
-			_monServer.dataLog(*_triplets[p], p, i);
+			(_monServer)->dataLog(*_triplets[p], p, i);
 		}
 	}
 }

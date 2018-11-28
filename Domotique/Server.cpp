@@ -9,23 +9,44 @@
 
 #include <vector>
 
+
+#include <fstream>
+#include <utility>
+#include <string>
+
 using namespace std;
 
 namespace domotique {
 namespace server {
 
 Server::Server() {
+	cout << "Server constructor called\n";
+}
+
+Server::Server(std::string fileName) {
+
 	filenames.push_back("Process_A");
 	filenames.push_back("Process_B");
-	//logFile("")
+
+	cout << "Server constructor called with argument " << fileName;
+	string folder = "log/";
+	const string metadata = "# Tick	\tState	\tPhen	\tCtrl\n";
+
+	for (auto name : filenames) {
+		string path = string(folder) + string(name) + string(".txt");
+
+		logFileStreams.emplace_back(std::shared_ptr<std::ofstream>(new ofstream(path.c_str(), ios::out | ios::trunc )));
+		*logFileStreams.back() << "#" + name + domotique::server::end << metadata;
+		cout << "#" + name + domotique::server::end << metadata;
+
+		cout << "Opening " << path << " for writing." << endl;
+	}
+
 }
-/*
- Server::Server(string fileName) :
- logFile(fileName)
- {}*/
 
 Server::~Server() {
-	// TODO Auto-generated destructor stub
+	for (auto file : logFileStreams)
+		file->close();
 }
 
 /*
@@ -37,54 +58,16 @@ Server::~Server() {
  this->logFile = fileName;
  }*/
 
-void Server::initLog(int triplet) {
-
-	string folder = "../log/";
-	string fileName = filenames[triplet];
-
-	/*if(triplet == 0) {
-	 fileName = "Process A";
-	 }
-	 else {
-	 fileName = "Process B";
-	 }*/
-
-	string path = string(folder) + string(fileName) + string(".txt");
-	cout << "Writing into : " << path << endl;
-
-	string metadata = "# Tick		State		Phen		Ctrl\n";
-
-	ofstream myfile;
-	myfile.open(path.c_str()); //, ios::out | ios::app | ios::binary);
-	myfile << "#" + fileName + domotique::server::end;
-	myfile << metadata;
-	myfile.close();
-
-	cout << path << " have been initialized." << endl;
-}
-
-void Server::dataLog(domotique::process::Process& triplet, int process,	int tick) {
-
-	string folder = "../log/";
-	string fileName = filenames[process];
-
-	/*if(triplet == 0) {
-	 fileName = "Process_A";
-	 }
-	 else {
-	 fileName = "Process_B";
-	 }*/
-	string path = string(folder) + string(fileName) + string(".txt");
-	cout << "Writing into : " << path << endl;
-
-	ofstream myfile;
-	myfile.open(path.c_str(), ios::out | ios::app | ios::binary);
-	myfile << tick << "\t\t" << triplet.Values()[process::ActorType::State]
-			<< "\t" << triplet.Values()[process::ActorType::Phenomenon] << "\t"
+void Server::dataLog(domotique::process::Process& triplet, int process, int tick) {
+	cout << "Writing into : " << process << "\n";
+	(*logFileStreams.at(process)) << tick << "\t\t"
+			<< triplet.Values()[process::ActorType::State] << "\t"
+			<< triplet.Values()[process::ActorType::Phenomenon] << "\t"
 			<< triplet.Values()[process::ActorType::Controller] << "\n";
-	myfile.close();
-
-	cout << path << "Data have been added to : " << path << endl;
+	cout << tick << "\t\t"
+				<< triplet.Values()[process::ActorType::State] << "\t"
+				<< triplet.Values()[process::ActorType::Phenomenon] << "\t"
+				<< triplet.Values()[process::ActorType::Controller] << "\n";
 
 }
 

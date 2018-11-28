@@ -21,16 +21,13 @@ class Runner : public xml::XMLParseable {
 private:
 	std::vector<process::Process *> _triplets;
 
-	server::Server _monServer;
+	std::unique_ptr<server::Server> _monServer;
 	unsigned _ticks = 0;
 
 public:
 	Runner(std::string configFileName);
 	Runner();
 	virtual ~Runner();
-
-	// Attributes
-	server::Server _server;
 
 	// Functions
 	void run();

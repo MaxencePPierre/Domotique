@@ -20,18 +20,19 @@ int main(int argc, char * argv[]) {
 	std::cout << "Reading simulation parameters from " << configFileName
 			<< std::endl;
 
-	runner::Runner r;
 	try {
-		r = runner::Runner(configFileName);
+		runner::Runner r(configFileName);
+		r.run();
 	} catch (xml::XMLParseException& x) {
 		std::cerr << "XMLParseException caught in " << x.FileName() << ":"
 				<< x.LineNo() << "\n\t" << x.what() << std::endl;
 		std::cerr << "Fatal error, must exit" << std::endl;
+		return -1;
 	} catch (std::exception& e) {
 		std::cerr << "Ex caught: " << e.what();
+		return -1;
 	}
 
-	r.run();
 
 	return 0;
 }
