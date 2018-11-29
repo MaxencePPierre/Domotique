@@ -1,8 +1,8 @@
 /*
- * Phenomenon.h
+ * \file Phenomenon.h
  *
- *  Created on: 12 Nov 2018
- *      Author: pcoo34
+ * \date 12 Nov 2018
+ * \author pcoo34
  */
 
 #ifndef PHENOMENON_H_
@@ -13,13 +13,17 @@
 
 namespace domotique{ namespace actor {
 
+/**
+ * \brief Specific methods and members needed for phenomena
+ *
+ * Entirely empty for phase one
+ */
 class Phenomenon: public Actor {
 protected:
+	/* not needed for phase one
 	double BoxMuller(double mu, double sigma);
+	*/
 public:
-	Phenomenon(tinyxml2::XMLNode *);
-	Phenomenon();
-	virtual ~Phenomenon();
 };
 
 }}

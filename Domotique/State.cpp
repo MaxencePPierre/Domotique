@@ -1,8 +1,8 @@
 /*
- * State.cpp
+ * \file State.cpp
  *
- *  Created on: 12 Nov 2018
- *      Author: pcoo34
+ * \date 12 Nov 2018
+ * \author pcoo34
  */
 
 #include "State.h"

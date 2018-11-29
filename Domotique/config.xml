@@ -3,24 +3,24 @@
 <simulation name="Phase One test simulation">
 	<process name="Temperature">
 		<phenomenon name="External Temperature" type="Random">
-			<valueLow>-100</valueLow>
-			<valueHigh>400</valueHigh>
+			<valueLow>-80</valueLow>
+			<valueHigh>10</valueHigh>
 		</phenomenon>
 		<controller name="Heater/cooler" type="Threshold">
-			<saturation>201</saturation>
+			<saturation>-50</saturation>
 		</controller>
 		<state name="Room" type="State">
-			<influencePhenomenon>0.01</influencePhenomenon>
+			<influencePhenomenon>0.1</influencePhenomenon>
 			<influenceController>0.09</influenceController>
 		</state>
 	</process>
 	<runner>
-		<ticks>30</ticks>
+		<ticks>52</ticks>
 	</runner>
 	<process name="Flooding">
 		<phenomenon name="Water height" type="Random">
 			<valueLow>0</valueLow>
-			<valueHigh>450</valueHigh>
+			<valueHigh>6</valueHigh>
 		</phenomenon>
 		<controller name="Lock" type="Threshold">
 			<saturation>5</saturation>
@@ -30,5 +30,4 @@
 			<influenceController>0.9</influenceController>
 		</state>
 	</process>
-
 </simulation>

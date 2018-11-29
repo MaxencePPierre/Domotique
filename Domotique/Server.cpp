@@ -9,9 +9,11 @@
 
 #include <vector>
 
+#include <iostream>
 #include <iomanip>
 #include <fstream>
 #include <string>
+#include <memory>
 
 using namespace std;
 
@@ -20,28 +22,30 @@ namespace server {
 
 Server::Server() {}
 
-Server::Server(std::string fileName) {
-
+Server::Server(std::string outputFolder) {
+	string logPath = outputFolder + separator + logFileName;
+	logFile.reset(new std::ofstream(logPath.c_str(), ios::out | ios::trunc ));
+	*this << "Log file created";
 	filenames.push_back("Process_A");
 	filenames.push_back("Process_B");
 
-	string folder = "log/";
 	const string metadata = "# Tick	\tState	\tPhen	\tCtrl\n";
 
 	for (auto name : filenames) {
-		string path = string(folder) + string(name) + string(".txt");
+		string path = outputFolder + separator + string(name) + string(".gp");
 
-		logFileStreams.emplace_back(std::shared_ptr<std::ofstream>(new ofstream(path.c_str(), ios::out | ios::trunc )));
-		*logFileStreams.back() << "#" + name + domotique::server::end << metadata;
+		plotDataFiles.emplace_back(std::shared_ptr<std::ofstream>(new ofstream(path.c_str(), ios::out | ios::trunc )));
+		*plotDataFiles.back() << "#" + name + domotique::server::end << metadata;
 
-		cout << "Opening " << path << " for writing." << endl;
+		cout << "Opening gnuplot data file " << path << " for writing." << endl;
 	}
 
 }
 
 Server::~Server() {
-	for (auto file : logFileStreams)
+	for (auto file : plotDataFiles)
 		file->close();
+	logFile->close();
 }
 
 /*
@@ -55,11 +59,10 @@ Server::~Server() {
 
 void Server::dataLog(domotique::process::Process& triplet, int process, int tick) {
 //	cout << "Writing into : " << process << "\n";
-	(*logFileStreams.at(process)) << tick << "\t\t" << std::setw(fieldWidth)
+	(*plotDataFiles.at(process)) << tick << "\t\t" << std::setw(fieldWidth)
 			<< triplet.Values()[process::ActorType::State] << "\t" << std::setw(fieldWidth)
 			<< triplet.Values()[process::ActorType::Phenomenon] << "\t" << std::setw(fieldWidth)
 			<< triplet.Values()[process::ActorType::Controller] << "\n";
-
 }
 
 }

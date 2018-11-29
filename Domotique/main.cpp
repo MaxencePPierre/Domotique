@@ -13,7 +13,7 @@ using namespace tinyxml2;
 
 int main(int argc, char * argv[]) {
 	if (argc < 2) {
-		std::cout << "Usage: " << argv[0] << " filename" << std::endl;
+		std::cout << "Usage: " << argv[0] << " xml-configuration-file-name" << std::endl;
 		return -1;
 	}
 	std::string configFileName = argv[1];
@@ -32,7 +32,7 @@ int main(int argc, char * argv[]) {
 		std::cerr << "Ex caught: " << e.what();
 		return -1;
 	}
-
+	std::cout << "Simulation finished" << std::endl;
 
 	return 0;
 }

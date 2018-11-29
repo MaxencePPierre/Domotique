@@ -1,8 +1,8 @@
 /*
- * Random.cpp
+ * \file Random.cpp
  *
- *  Created on: 13 Nov 2018
- *      Author: pcoo34
+ * \date 13 Nov 2018
+ * \author pcoo34
  */
 #include <vector>
 

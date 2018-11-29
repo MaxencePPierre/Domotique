@@ -16,6 +16,14 @@
 namespace domotique {
 namespace xml {
 
+/**
+ * \brief Class with a utility method and member variables to enable xml parsing to be done generically
+ *
+ * Method to parse xml:
+ * 	- declare set of required and optional parameters for the class
+ * 	- call \c populate with XMLNode parameter passed to constructor
+ * 	\note populate must be a separate function as the superclass' (this class') constructor is called before those of any children
+ * */
 class XMLParseable {
 protected:
 	/**
@@ -28,6 +36,7 @@ protected:
 	 * \brief The set of parameters not strictly necessary for the class to function
 	 *
 	 * This is populated by the constructor of each class before the Actor::populate function is called to parse the xml
+	 * \note No method of assigning default values to optional parameters has yet been implemented. Possibly using a map ( similar to \c _paramList ).
 	 * */
 	std::set<xml::XMLMap::Element> _optionalParams;
 	/**

@@ -1,3 +1,8 @@
+/*
+ * \file XMLMappings.cpp
+ * \date 23 nov. 2018
+ * \author pcoo34
+ */
 #include <map>
 #include <string>
 

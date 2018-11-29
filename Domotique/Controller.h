@@ -13,11 +13,11 @@
 
 namespace domotique{ namespace actor {
 
+/**
+ * \brief Base class for all Controllers
+ * */
 class Controller: public Actor {
 public:
-	Controller(tinyxml2::XMLNode * node);
-	Controller();
-	virtual ~Controller();
 };
 
 }}

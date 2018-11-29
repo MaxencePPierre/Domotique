@@ -1,8 +1,8 @@
 /*
- * XMLParseable.cpp
+ * \file XMLParseable.cpp
  *
- *  Created on: 26 nov. 2018
- *      Author: pcoo34
+ * \date 26 nov. 2018
+ * \author pcoo34
  */
 
 #include "XMLParseable.h"
