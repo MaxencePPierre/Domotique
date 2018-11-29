@@ -17,6 +17,7 @@
 namespace domotique {
 namespace runner {
 
+/// Class that oversees execution of simulation
 class Runner : public xml::XMLParseable {
 private:
 	std::vector<process::Process *> _triplets;
@@ -25,11 +26,15 @@ private:
 	unsigned _ticks = 0;
 
 public:
+	/**@brief Constructs runner, given name of config file
+	 *
+	 * @param configFileName Name of xml config file */
 	Runner(std::string configFileName);
 	Runner();
 	virtual ~Runner();
 
 	// Functions
+	/// function that initiates the simulation, contains the simulation loop
 	void run();
 };
 
