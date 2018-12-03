@@ -41,7 +41,7 @@ public:
 	 */
 	void Calculate();
 
-	/**
+	/**\brief Constructs State object based on given XMLNode, retrieves parameters
 	 * \param phenomenon Phenomenon that will act on the State; reference stored in \c _phenomenon.
 	 * \param controller Controller that will act on the State in response to the actions of the Phenomenon; reference stored in \c _controller.
 	 * \param node XMLNode from which to gather parameters
@@ -49,14 +49,6 @@ public:
 	State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, tinyxml2::XMLNode * node);
 	virtual ~State();
 
-	State& operator=(const State& other)
-	{
-	    if (this != &other) {
-	        _phenomenon = other._phenomenon;
-	        _controller = other._controller;
-	    }
-	    return *this;
-	}
 };
 
 }}

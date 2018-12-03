@@ -53,10 +53,11 @@ public:
 	*/
 	void dataLog(domotique::process::Process& triplet, int process, int tick);
 	/**
-	 * \brief Templated stream input operator for logging
-	 * For types with predefined operator<< functions in the stl like const char * and std::string.
+	 * \brief Templated stream input operator for logging.
+	 *
+	 * For types with predefined \c operator<< functions in the stl like \c const \c char \c * and \c std::string.
 	 * Ouputs a timestamp in the local time with each log entry.
-	 * One call to this function causes one line to be added in the log file. For more complex log entries the operator<< function is defined below for std::stringstream.
+	 * One call to this function causes one line to be added in the log file. For more complex log entries the \c operator<< function is defined below for \c std::stringstream.
 	 * \param s Reference to the Server object being written to ( the one doing the logging )
 	 * \param t Reference to the templated object being logged
 	 * */
@@ -73,10 +74,11 @@ public:
 				<< t << std::endl;
 	}
 	/**
-	 * \brief Specific stream input operator for logging std::stringstream types
-	 * Useful when a more complicated message needs to be logged, containing several types. The std::stringstream object is created, the message is written to it, a reference is passed, the string representation is passed to the templated operator<< function to be written to the log file.
+	 * \brief Specific stream input operator for logging \c std::stringstream types.
+	 *
+	 * Useful when a more complicated message needs to be logged, containing several types. The \c std::stringstream object is created, the message is written to it, a reference is passed, the string representation is passed to the templated \c operator<< function to be written to the log file.
 	 * \param s Reference to the Server object owning the log file (left operand).
-	 * \param str Reference to the std::stringstream object containing the log message.
+	 * \param str Reference to the \c stringstream object containing the log message.
 	 * */
 	friend void operator<<(Server& s, std::stringstream& str)
 	{

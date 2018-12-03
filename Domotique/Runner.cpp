@@ -63,7 +63,8 @@ Runner::Runner(std::string configFileName) {
 }
 
 Runner::~Runner() {
-	// TODO Auto-generated destructor stub
+	for(auto * t : _triplets)
+		delete t;
 }
 Runner::Runner() {
 	// TODO Auto-generated constructor stub
