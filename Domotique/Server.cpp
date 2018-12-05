@@ -49,8 +49,11 @@ Server::Server(std::string outputFolder) : _tick(0)
 Server::~Server()
 {
 	for( auto file : plotDataFiles )
+	{
+		*file << end;
 		file->close();
-	*this << "Simulation finished";
+	}
+		*this << "Simulation finished";
 	logFile->close();
 }
 
