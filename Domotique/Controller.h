@@ -8,6 +8,8 @@
 #ifndef CONTROLLER_H_
 #define CONTROLLER_H_
 
+#include <memory>
+
 #include "Actor.h"
 #include "tinyxml2.h"
 #include <memory>

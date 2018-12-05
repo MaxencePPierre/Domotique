@@ -22,19 +22,23 @@ namespace server {
 
 Server::Server() : _tick(0) {}
 
-Server::Server(std::string outputFolder) : Server() {
+Server::Server(std::string outputFolder) : _tick(0)
+{
 	string logPath = outputFolder + separator + logFileName;
-	logFile.reset(new std::ofstream(logPath.c_str(), ios::out | ios::trunc ));
+	logFile.reset( new std::ofstream( logPath.c_str(), ios::out | ios::trunc ) );
+	std::stringstream s;
+	s << "Log file " << logFileName << " created";
 	*this << "Log file created";
-	filenames.push_back("Process_A");
-	filenames.push_back("Process_B");
+	filenames.push_back( "Process_A" );
+	filenames.push_back( "Process_B" );
 
-	const string metadata = "# Tick	\tState	\tPhen	\tCtrl\n";
+	const string metadata = "# Tick	\tState	\tPhen	\tCtrl";
 
-	for (auto name : filenames) {
-		string path = outputFolder + separator + string(name) + string(".gp");
+	for( auto name : filenames )
+	{
+		string path = outputFolder + separator + string( name ) + string( ".gp" );
 
-		plotDataFiles.emplace_back(std::shared_ptr<std::ofstream>(new ofstream(path.c_str(), ios::out | ios::trunc )));
+		plotDataFiles.emplace_back( std::shared_ptr< std::ofstream >( new ofstream( path.c_str(), ios::out | ios::trunc ) ) );
 		*plotDataFiles.back() << "#" + name + domotique::server::end << metadata;
 
 		cout << "Opening gnuplot data file " << path << " for writing." << endl;
@@ -42,28 +46,14 @@ Server::Server(std::string outputFolder) : Server() {
 
 }
 
-Server::~Server() {
-	for (auto file : plotDataFiles)
+Server::~Server()
+{
+	for( auto file : plotDataFiles )
 		file->close();
+	*this << "Simulation finished";
 	logFile->close();
 }
 
-/*
- string Server::getLogFile() {
- //return this->logFile;
- }
-
- void Server::setLogFile(string fileName) {
- this->logFile = fileName;
- }*/
-
-//void Server::dataLog(domotique::process::Process& triplet, int process, int tick) {
-////	cout << "Writing into : " << process << "\n";
-//	(*plotDataFiles.at(process)) << tick << "\t\t" << std::setw(fieldWidth)
-//			<< triplet.Values()[process::ActorType::State] << "\t" << std::setw(fieldWidth)
-//			<< triplet.Values()[process::ActorType::Phenomenon] << "\t" << std::setw(fieldWidth)
-//			<< triplet.Values()[process::ActorType::Controller] << "\n";
-//}
 void Server::nextTick()
 {
 	*plotDataFiles.at(0) << std::endl << _tick << "\t\t";

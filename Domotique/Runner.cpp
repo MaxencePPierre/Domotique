@@ -6,7 +6,13 @@
  */
 
 #include "Runner.h"
+
+#include <initializer_list>
+#include <iostream>
 #include <map>
+#include <memory>
+#include <set>
+#include <string>
 
 #include "Server.h"
 #include "tinyxml2.h"
@@ -16,6 +22,12 @@
 #include "Phenomenon.h"
 #include "State.h"
 #include <iostream>
+#include "Controller.h"
+#include "Phenomenon.h"
+#include "State.h"
+#include "tinyxml2.h"
+#include "XMLMappings.h"
+
 using namespace tinyxml2;
 using namespace domotique::xml;
 
@@ -58,7 +70,6 @@ Runner::Runner(std::string configFileName)
 				{
 
 					std::shared_ptr< actor::State > state = std::make_shared< actor::State >( phenomenon, controller, node );
-					actor::State s = actor::State( phenomenon, controller, node );
 					_actors.push_back( state );
 					controller->registerState( state );
 					break;
@@ -74,6 +85,7 @@ Runner::Runner(std::string configFileName)
 		}
 		*_monServer << "Finished zone";
 	}
+
 	_requiredParams =
 	{
 		{	xml::XMLMap::Element::Ticks}
@@ -115,7 +127,6 @@ void Runner::run()
 			_monServer->dataLog( actor->Value() );
 		}
 	}
-	*_monServer << "Simulation ended";
 	*_monServer << "Simulation completed successfully";
 }
 }

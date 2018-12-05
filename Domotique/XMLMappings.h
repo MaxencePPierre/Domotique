@@ -7,6 +7,7 @@
 #ifndef XMLMAPPINGS_H_
 #define XMLMAPPINGS_H_
 
+#include <exception>
 #include <map>
 #include <string>
 

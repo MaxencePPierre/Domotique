@@ -20,6 +20,5 @@ std::shared_ptr< Phenomenon > Phenomenon::makePhenomenon(XMLNode * node)
 	phenomenon.reset( new Random( node ) );
 	return phenomenon;
 }
-
 }
 }

@@ -8,11 +8,13 @@
 #ifndef RUNNER_H_
 #define RUNNER_H_
 
+#include <memory>
+#include <string>
 #include <vector>
 
+#include "Actor.h"
 #include "Server.h"
 #include "XMLParseable.h"
-#include "Actor.h"
 
 namespace domotique {
 namespace runner {
@@ -33,7 +35,6 @@ class Runner: public xml::XMLParseable
 		Runner();
 		virtual ~Runner();
 
-		// Functions
 		/// function that initiates the simulation, contains the simulation loop
 		void run();
 };
