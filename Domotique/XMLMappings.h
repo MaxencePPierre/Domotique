@@ -63,11 +63,12 @@ public:
 		/* Root element */
 		Simulation,
 		/* Children */
-		Process, Runner,
+		Zone, Runner,
 		/* Grandchildren */
 		Phenomenon, Controller, State,
 		/* Parameters for controllers, phenomena and states*/
 		InfluencePhenomenon, InfluenceController, ValueLow, ValueHigh, Saturation,
+		VTHRMAX, VTHRMIN, VCTRLMAX, VCTRLMIN, // OnOff
 		/* Parameters for the control classes of Server and Runner */
 		Ticks
 	};

@@ -10,6 +10,7 @@
 
 #include "Actor.h"
 #include "tinyxml2.h"
+#include <memory>
 
 namespace domotique{ namespace actor {
 
@@ -20,10 +21,9 @@ namespace domotique{ namespace actor {
  */
 class Phenomenon: public Actor {
 protected:
-	/* not needed for phase one
 	double BoxMuller(double mu, double sigma);
-	*/
 public:
+	static std::shared_ptr<Phenomenon> makePhenomenon(tinyxml2::XMLNode * node);
 };
 
 }}

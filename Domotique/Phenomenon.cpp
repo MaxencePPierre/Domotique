@@ -6,9 +6,20 @@
  */
 
 #include "Phenomenon.h"
-
+#include "Random.h"
 #include "tinyxml2.h"
 
-namespace domotique{ namespace actor {
+using namespace tinyxml2;
+using namespace domotique::actor::phenomenon;
 
-}}
+namespace domotique {
+namespace actor {
+std::shared_ptr< Phenomenon > Phenomenon::makePhenomenon(XMLNode * node)
+{
+	std::shared_ptr< Phenomenon > phenomenon;
+	phenomenon.reset( new Random( node ) );
+	return phenomenon;
+}
+
+}
+}

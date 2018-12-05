@@ -20,9 +20,9 @@ using namespace std;
 namespace domotique {
 namespace server {
 
-Server::Server() {}
+Server::Server() : _tick(0) {}
 
-Server::Server(std::string outputFolder) {
+Server::Server(std::string outputFolder) : Server() {
 	string logPath = outputFolder + separator + logFileName;
 	logFile.reset(new std::ofstream(logPath.c_str(), ios::out | ios::trunc ));
 	*this << "Log file created";
@@ -57,13 +57,22 @@ Server::~Server() {
  this->logFile = fileName;
  }*/
 
-void Server::dataLog(domotique::process::Process& triplet, int process, int tick) {
-//	cout << "Writing into : " << process << "\n";
-	(*plotDataFiles.at(process)) << tick << "\t\t" << std::setw(fieldWidth)
-			<< triplet.Values()[process::ActorType::State] << "\t" << std::setw(fieldWidth)
-			<< triplet.Values()[process::ActorType::Phenomenon] << "\t" << std::setw(fieldWidth)
-			<< triplet.Values()[process::ActorType::Controller] << "\n";
+//void Server::dataLog(domotique::process::Process& triplet, int process, int tick) {
+////	cout << "Writing into : " << process << "\n";
+//	(*plotDataFiles.at(process)) << tick << "\t\t" << std::setw(fieldWidth)
+//			<< triplet.Values()[process::ActorType::State] << "\t" << std::setw(fieldWidth)
+//			<< triplet.Values()[process::ActorType::Phenomenon] << "\t" << std::setw(fieldWidth)
+//			<< triplet.Values()[process::ActorType::Controller] << "\n";
+//}
+void Server::nextTick()
+{
+	*plotDataFiles.at(0) << std::endl << _tick << "\t\t";
+	_tick++;
 }
+void Server::dataLog(double value)
+{
+	*plotDataFiles.at(0) << setw(fieldWidth) << value;
+ }
 
 }
 }

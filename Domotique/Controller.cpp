@@ -8,6 +8,13 @@
 #include "Controller.h"
 #include "tinyxml2.h"
 
-namespace domotique{ namespace actor {
+using namespace tinyxml2;
 
+namespace domotique{ namespace actor {
+std::shared_ptr< Controller > Controller::makeController(XMLNode * node)
+{
+	std::shared_ptr<Controller> controller;
+//	controller.reset(new OnOff(node));
+	return controller;
+}
 }}

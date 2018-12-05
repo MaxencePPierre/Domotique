@@ -15,7 +15,7 @@
 #include <fstream>
 #include <ctime>
 
-#include "Process.h"
+
 
 namespace domotique { namespace server {
 
@@ -33,13 +33,14 @@ private:
 	std::vector<std::string> filenames;
 	std::vector<std::shared_ptr<std::ofstream>> plotDataFiles;
 	std::unique_ptr<std::ofstream> logFile;
-
+	int _tick;
 public:
 	Server();
 	/// @brief Constructs server given name of output folder @param outputFolder Name of folder to put output in @note The output folder must exist
 	Server(std::string outputFolder);
 	virtual ~Server();
-
+	void dataLog(double value);
+	void nextTick();
 	// Attributes
 	//string logFile; // Name of the output logFile
 
@@ -51,7 +52,7 @@ public:
 	 * @param process indexes plotDataFiles to determine which output stream to write to
 	 * @param tick current tick
 	*/
-	void dataLog(domotique::process::Process& triplet, int process, int tick);
+//	void dataLog(domotique::process::Process& triplet, int process, int tick);
 	/**
 	 * \brief Templated stream input operator for logging.
 	 *

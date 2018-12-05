@@ -11,7 +11,7 @@ namespace domotique{ namespace xml {
 
 	std::map<XMLMap::Element, const std::string> XMLMap::BaseElementMap = {
 			{Element::Simulation	, "simulation"	},
-			{Element::Process 		, "process"		},
+			{Element::Zone 			, "zone"		},
 			{Element::Runner 		, "runner"		}
 	};
 	std::map<const std::string, XMLMap::Element> XMLMap::ElementMap = {
@@ -23,7 +23,11 @@ namespace domotique{ namespace xml {
 			{"valueLow"			, Element::ValueLow			},
 			{"valueHigh"		, Element::ValueHigh		},
 			{"saturation"		, Element::Saturation		},
-			{"ticks"			, Element::Ticks		}
+			{"ticks"			, Element::Ticks			},
+			{"VTHRMAX"			, Element::VTHRMAX			},
+			{"VTHRMIN"			, Element::VTHRMIN			},
+			{"VCTRLMAX"			, Element::VCTRLMAX			},
+			{"VCTRLMIN"			, Element::VCTRLMIN			}
 	};
 
 	std::map<XMLMap::Attributes, const std::string> XMLMap::AttributeMap = {
