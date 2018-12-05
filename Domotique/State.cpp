@@ -8,7 +8,7 @@
 #include "State.h"
 #include "Phenomenon.h"
 #include "Controller.h"
-
+#include <iostream>
 #include "tinyxml2.h"
 
 #include "XMLMappings.h"
@@ -23,7 +23,8 @@ void State::Calculate()
 			+ ((_controller->Value() - oldvalue) * _paramList[xml::XMLMap::Element::InfluenceController]);
 }
 
-State::State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, tinyxml2::XMLNode * node) : _phenomenon(phenomenon), _controller(controller)
+State::State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, tinyxml2::XMLNode * node)
+: _phenomenon(phenomenon), _controller(controller)
 {
 	_requiredParams =
 	{

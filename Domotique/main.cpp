@@ -2,7 +2,6 @@
 #include <map>
 #include <exception>
 
-#include "Process.h"
 #include "Runner.h"
 #include "Server.h"
 #include "tinyxml2.h"
@@ -17,7 +16,7 @@ int main(int argc, char * argv[]) {
 		return -1;
 	}
 	std::string configFileName = argv[1];
-	std::cout << "Reading simulation parameters from " << configFileName
+	std::cout << "Reading simulation parameters from `" << configFileName << '\''
 			<< std::endl;
 
 	try {
@@ -32,7 +31,7 @@ int main(int argc, char * argv[]) {
 		std::cerr << "Ex caught: " << e.what();
 		return -1;
 	}
-	std::cout << "Simulation finished" << std::endl;
+	std::cout << "Application exiting" << std::endl;
 
 	return 0;
 }

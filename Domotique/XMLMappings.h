@@ -7,6 +7,7 @@
 #ifndef XMLMAPPINGS_H_
 #define XMLMAPPINGS_H_
 
+#include <exception>
 #include <map>
 #include <string>
 
@@ -63,11 +64,12 @@ public:
 		/* Root element */
 		Simulation,
 		/* Children */
-		Process, Runner,
+		Zone, Runner,
 		/* Grandchildren */
 		Phenomenon, Controller, State,
 		/* Parameters for controllers, phenomena and states*/
 		InfluencePhenomenon, InfluenceController, ValueLow, ValueHigh, Saturation,
+		VTHRMAX, VTHRMIN, VCTRLMAX, VCTRLMIN, // OnOff
 		/* Parameters for the control classes of Server and Runner */
 		Ticks
 	};

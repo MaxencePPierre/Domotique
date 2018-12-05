@@ -9,6 +9,7 @@
 #define ACTOR_H_
 
 #include <set>
+#include <memory>
 #include "tinyxml2.h"
 
 #include "XMLParseable.h"
@@ -18,7 +19,9 @@ namespace domotique{ namespace actor {
 /** \brief Base class for all actors in simulation
  *
  * An Actor here is defined as an entity taking an active part in the simulation.
- * This class serves as the base for all actors; that is to say all Phenomena, Controllers and States in the simulation */
+ * This class serves as the base for all actors; that is to say all Phenomena, Controllers and States in the simulation.
+ * It derives from XMLParseable in order that the leaf classes might use XMLParseable's xml parsing methods to get their parameters from an xml file.
+ * */
 class Actor : public xml::XMLParseable {
 protected:
 	/// The value generated when Calculate() is called
@@ -28,8 +31,6 @@ public:
 	virtual void Calculate() = 0;
 	/// Accessor method for the actor's internal value
 	double Value() const { return _value; };
-	Actor();
-	virtual ~Actor();
 };
 
 }}

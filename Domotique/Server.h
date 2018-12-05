@@ -8,14 +8,11 @@
 #ifndef SERVER_H_
 #define SERVER_H_
 
-#include <string>
-#include <sstream>
-#include <memory>
-#include <vector>
-#include <fstream>
 #include <ctime>
-
-#include "Process.h"
+#include <memory>
+#include <sstream>
+#include <string>
+#include <vector>
 
 namespace domotique { namespace server {
 
@@ -33,7 +30,8 @@ private:
 	std::vector<std::string> filenames;
 	std::vector<std::shared_ptr<std::ofstream>> plotDataFiles;
 	std::unique_ptr<std::ofstream> logFile;
-
+	/// Current tick number
+	int _tick;
 public:
 	Server();
 	/// @brief Constructs server given name of output folder @param outputFolder Name of folder to put output in @note The output folder must exist
@@ -51,7 +49,9 @@ public:
 	 * @param process indexes plotDataFiles to determine which output stream to write to
 	 * @param tick current tick
 	*/
-	void dataLog(domotique::process::Process& triplet, int process, int tick);
+//	void dataLog(domotique::zone::Zone& triplet, int process, int tick);
+	void dataLog(double value);
+	void nextTick();
 	/**
 	 * \brief Templated stream input operator for logging.
 	 *
@@ -68,7 +68,7 @@ public:
 		std::tm* now = std::localtime(&time);
 		*(s.logFile)
 				<< "["
-				<< (now->tm_year + 1900) << "-" << (now->tm_mon) << "-" << (now->tm_mday) << "T"
+				<< (now->tm_year + 1900) << "-" << (now->tm_mon +1) << "-" << (now->tm_mday) << "T"
 				<< (now->tm_hour) << ":" << (now->tm_min) << ":" << (now->tm_sec) << " " << (now->tm_zone)
 				<< "]" << " "
 				<< t << std::endl;
