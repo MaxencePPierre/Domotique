@@ -117,9 +117,6 @@ void Runner::run()
 		std::stringstream s;
 		s << "Tick " << i;
 		*_monServer << s;
-		// Output percentage complete every ten percent
-		if( ( ( 10 * i ) / nticks ) % 10 == 0 )
-			std::cout << "    " << ( 10 * i ) / _paramList[xml::XMLMap::Element::Ticks] << "%";
 		_monServer->nextTick();
 		for( auto actor : _actors )
 		{
