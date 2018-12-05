@@ -13,7 +13,7 @@
 #include <memory>
 #include <set>
 #include <string>
-
+#include <iomanip>
 #include "Server.h"
 #include "tinyxml2.h"
 #include "XMLMappings.h"
@@ -111,15 +111,15 @@ Runner::Runner()
 void Runner::run()
 {
 	*_monServer << "Simulation started";
-	unsigned nticks = static_cast<unsigned>(_paramList[xml::XMLMap::Element::Ticks]);
+	std::cout << "Tick:";
+	unsigned nticks = static_cast< unsigned >( _paramList[xml::XMLMap::Element::Ticks] );
 	for( unsigned i = 0; i < nticks; i++ )
 	{
 		std::stringstream s;
 		s << "Tick " << i;
 		*_monServer << s;
 		// Output percentage complete every ten percent
-		if( ( ( 10 * i ) / nticks ) % 10 == 0 )
-			std::cout << "    " << ( 10 * i ) / _paramList[xml::XMLMap::Element::Ticks] << "%";
+		if( ( i % ((int)( ( ((float)nticks ) / 10.0) + 0.5) ) ) == 0 && i > 0 ) std::cout << "  " << i << "(" << ( 100 * i ) / nticks << "%)";
 		_monServer->nextTick();
 		for( auto actor : _actors )
 		{
@@ -127,6 +127,7 @@ void Runner::run()
 			_monServer->dataLog( actor->Value() );
 		}
 	}
+	std::cout << "  " << nticks << "(100%)\n";
 	*_monServer << "Simulation completed successfully";
 }
 }
