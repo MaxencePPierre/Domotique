@@ -38,7 +38,7 @@ protected:
 	 * This is populated by the constructor of each class before the Actor::populate function is called to parse the xml
 	 * \note No method of assigning default values to optional parameters has yet been implemented. Possibly using a map ( similar to \c _paramList ).
 	 * */
-	std::set<xml::XMLMap::Element> _optionalParams;
+	std::map<xml::XMLMap::Element, double> _optionalParams;
 	/**
 	 * \brief Collection of class' parameters
 	 *
