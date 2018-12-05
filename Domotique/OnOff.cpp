@@ -7,6 +7,7 @@
 
 #include "OnOff.h"
 #include "XMLMappings.h"
+#include "State.h"
 
 using namespace tinyxml2;
 using namespace domotique::xml;
@@ -15,7 +16,13 @@ namespace domotique {namespace actor {namespace controller {
 
 void OnOff::Calculate()
 {
-	_value = 0;
+	double stateVal = _state->Value();
+	if(stateVal > _paramList[XMLMap::Element::VTHRMAX])
+		_value = _paramList[XMLMap::Element::VCTRLMIN];
+	else if(stateVal > _paramList[XMLMap::Element::VTHRMIN])
+		_value = _paramList[XMLMap::Element::VCTRLMAX];
+	else
+		_value = stateVal;
 }
 
 OnOff::OnOff(XMLNode * node) {

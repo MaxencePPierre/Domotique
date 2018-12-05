@@ -27,7 +27,9 @@ namespace domotique{ namespace xml {
 			{"VTHRMAX"			, Element::VTHRMAX			},
 			{"VTHRMIN"			, Element::VTHRMIN			},
 			{"VCTRLMAX"			, Element::VCTRLMAX			},
-			{"VCTRLMIN"			, Element::VCTRLMIN			}
+			{"VCTRLMIN"			, Element::VCTRLMIN			},
+			{"SETPT"			, Element::SETPT			},
+			{"GAIN"				, Element::GAIN				}
 	};
 
 	std::map<XMLMap::Attributes, const std::string> XMLMap::AttributeMap = {
@@ -39,7 +41,9 @@ namespace domotique{ namespace xml {
 			{"None"		, ElementType::None},
 			{"Random"	, ElementType::Random},
 			{"Threshold", ElementType::Threshold},
-			{"State"	, ElementType::State}
+			{"State"	, ElementType::State},
+			{"OnOff"	, ElementType::OnOff},
+			{"Proportional"	, ElementType::Proportional}
 	};
 
 //template<typename K, typename V>
