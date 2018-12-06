@@ -80,7 +80,7 @@ Runner::Runner(std::string configFileName)
 					break;
 			};
 			std::stringstream s;
-			s << "Created new " << node->Value() << " actor";
+			s << "Created new " << node->Value() << " actor :" << _actors.back()->Name();
 			*_monServer << s;
 		}
 		*_monServer << "Finished zone";

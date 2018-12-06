@@ -46,6 +46,8 @@ protected:
 	 * The required value is accessed by using the Element type as a key to the map.
 	 * */
 	std::map<xml::XMLMap::Element, double> _paramList;
+	std::set<xml::XMLMap::Attributes> _requiredAttributes;
+	std::map<xml::XMLMap::Attributes, std::string> _attributeList;
 public:
 	XMLParseable();
 	virtual ~XMLParseable();

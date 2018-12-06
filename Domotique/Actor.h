@@ -35,8 +35,9 @@ public:
 	virtual void Calculate(int tick) = 0;
 	/// Accessor method for the actor's internal value
 	double Value() const { return _value; };
+	std::string Name() {return _attributeList[xml::XMLMap::Attributes::Name];}
+	Actor(){_requiredAttributes = {xml::XMLMap::Attributes::Name, xml::XMLMap::Attributes::Type};};
 };
-
 }}
 
 #endif /* ACTOR_H_ */

@@ -18,9 +18,34 @@ using namespace tinyxml2;
 namespace domotique {
 namespace xml {
 
-// TODO Generalise this to an XMLParseable class so Server, Runner and Actor can all use this
 void XMLParseable::populate(XMLNode * node)
 {
+	for( auto attribute : _requiredAttributes)
+	{
+		XMLElement * element = node->ToElement();
+		if(!element)
+		{
+			std::stringstream s;
+			s << "Failed to convert " << node->Value() << " node to an element";
+			throw XMLParseException(s.str().c_str(), __FILE__, __LINE__);
+		}
+		const XMLAttribute * xmlAttribute = element->FindAttribute( XMLMap::AttributeMap[attribute].c_str() );
+		if(!xmlAttribute)
+		{
+			std::stringstream s;
+			s << "Attribute " << XMLMap::AttributeMap[attribute] << " from required attributes list not found in " << node->Value() << " element";
+			throw XMLParseException(s.str().c_str(), __FILE__, __LINE__);
+		}
+		std::string value = xmlAttribute->Value();
+		if( value.empty())
+		{
+			std::stringstream s;
+			s << "Attribute " << XMLMap::AttributeMap[attribute] << " does not have a value in " << node->Value() << " element";
+			throw XMLParseException(s.str().c_str(), __FILE__, __LINE__);
+		}
+		_attributeList.insert(std::pair< XMLMap::Attributes, std::string>( attribute, value) );
+	}
+
 	// Read all children ( i.e. parameters ) into vector for later processing
 	std::vector< XMLElement * > children;
 	for( auto * child = node->FirstChildElement(); child; child = child->NextSiblingElement() )
