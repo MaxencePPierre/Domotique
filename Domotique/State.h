@@ -43,7 +43,7 @@ class State: public Actor
 		 * 	- \f$v_{p_t},\,v_{c_t}\f$ : values of associated Phenomenon and Controller at tick \f$t\f$
 		 * 	- \f$I_p,\,I_c\f$ : influences of associated Phenomenon and Controller
 		 */
-		void Calculate();
+		void Calculate(int tick) override;
 
 		/**\brief Constructs State object based on given XMLNode, retrieves parameters
 		 * \param phenomenon Phenomenon that will act on the State; reference stored in \c _phenomenon.

@@ -72,6 +72,7 @@ public:
 		ValueLow, ValueHigh, Saturation,		// Threshold
 		VTHRMAX, VTHRMIN, VCTRLMAX, VCTRLMIN,	// OnOff
 		SETPT, GAIN,							// Proportional
+		OFFS, AMPL, PHASE, PERIOD, SAT_MAX, SAT_MIN,	// Sinusoidal
 		/* Parameters for the control classes of Server and Runner */
 		Ticks
 	};
@@ -85,7 +86,7 @@ public:
 	/// The allowed values of the \c Attributes::Type attribute: subclasses of Phenomenon and Controller, along with the State class.
 	enum class ElementType
 	{
-		None, Random, Threshold, State, OnOff, Proportional
+		None, Random, Threshold, State, OnOff, Proportional, Sinusoidal
 	};
 	/// Map relating a given XML element to its string representation, contains only the root element Element::Simulation and its direct descendants
 	static std::map<XMLMap::Element, const std::string> BaseElementMap;

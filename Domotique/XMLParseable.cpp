@@ -38,7 +38,8 @@ void XMLParseable::populate(XMLNode * node)
 			{
 				//parameter not in parameter list for this class
 				std::stringstream s;
-				s << "Parameter " << child->Name() << " not in parameter list";
+				s << "Parameter " << child->Name() << " read from config file is neither an optional nor required parameter for the "
+						<< node->ToElement()->FindAttribute( XMLMap::AttributeMap[XMLMap::Attributes::Type].c_str() )->Value() << " actor";
 				throw XMLParseException( s.str().c_str(), __FILE__, __LINE__ );
 			}
 		}

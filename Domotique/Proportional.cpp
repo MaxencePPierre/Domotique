@@ -6,16 +6,20 @@
  */
 
 #include "Proportional.h"
-#include "XMLMappings.h"
-#include "State.h"
 
-#include <iostream>
+#include <initializer_list>
+#include <map>
+#include <set>
+
+#include "Actor.h"
+#include "State.h"
+#include "XMLMappings.h"
 
 using namespace tinyxml2;
 using namespace domotique::xml;
 namespace domotique {namespace actor {namespace controller {
 
-void Proportional::Calculate()
+void Proportional::Calculate(int tick)
 {
 	double stateVal = _state->Value();
 	double error = stateVal - _paramList[XMLMap::Element::SETPT];
@@ -33,7 +37,6 @@ Proportional::Proportional(XMLNode * node)
 			{ XMLMap::Element::GAIN	, 1.0 }
 	};
 	populate(node);
-	std::cout << "GAIN VALUE : " << _paramList[XMLMap::Element::GAIN] << std::endl;
 }
 
 }}}

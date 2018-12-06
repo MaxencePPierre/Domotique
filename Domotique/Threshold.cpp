@@ -14,7 +14,7 @@ using namespace domotique::xml;
 using namespace tinyxml2;
 namespace domotique{ namespace actor{ namespace controller {
 
-void Threshold::Calculate()
+void Threshold::Calculate(int tick)
 {
 	double phalue = _phenomenon->Value();
 	_value = (phalue > _paramList[XMLMap::Element::Saturation]) ? _paramList[XMLMap::Element::Saturation] : phalue;

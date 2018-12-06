@@ -35,7 +35,7 @@ std::shared_ptr< Controller > Controller::makeController(XMLNode * node)
 			controller.reset( new Proportional( node ) );
 			break;
 		default:
-			throw xml::XMLParseException("Controller type not recognised", __FILE__, __LINE__);
+			throw xml::XMLParseException("Type of controller not recognised", __FILE__, __LINE__);
 			break;
 	}
 	return controller;

@@ -18,7 +18,7 @@ namespace controller {
 class Proportional: public Controller
 {
 	public:
-		void Calculate();
+		void Calculate(int tick) override;
 		Proportional(tinyxml2::XMLNode * node);
 };
 

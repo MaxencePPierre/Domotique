@@ -2,23 +2,27 @@
 <!DOCTYPE simulation>
 <simulation name="Phase One test simulation">
 	<zone name="Temperature">
-		<phenomenon name="External Temperature" type="Random">
-			<valueLow>-80</valueLow>
-			<valueHigh>10</valueHigh>
+		<phenomenon name="External Temperature" type="Sinusoidal">
+			<OFFS></OFFS>
+			<AMPL>10</AMPL>
+			<PHASE></PHASE>
+			<PERIOD>10</PERIOD>
+			<SAT_MAX></SAT_MAX>
+			<SAT_MIN></SAT_MIN>
 		</phenomenon>
 		<controller name="Heater/cooler" type="OnOff">
-			<VTHRMAX>10</VTHRMAX>
-			<VTHRMIN>-10</VTHRMIN>
-			<VCTRLMAX>5</VCTRLMAX>
-			<VCTRLMIN>-5</VCTRLMIN>
+			<VTHRMAX>5</VTHRMAX>
+			<VTHRMIN>-5</VTHRMIN>
+			<VCTRLMAX>3</VCTRLMAX>
+			<VCTRLMIN>-3</VCTRLMIN>
 		</controller>
 		<state name="Room" type="State">
-			<influencePhenomenon>0.1</influencePhenomenon>
-			<influenceController>0.09</influenceController>
+			<influencePhenomenon>0.005</influencePhenomenon>
+			<influenceController>0.1</influenceController>
 		</state>
 	</zone>
 	<runner>
-		<ticks>16.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999</ticks>
+		<ticks>99.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999</ticks>
 	</runner>
 	<zone name="Flooding">
 		<phenomenon name="Water height" type="Random">
@@ -34,4 +38,8 @@
 			<influenceController>0.9</influenceController>
 		</state>
 	</zone>
+	 <server>
+		 <logfile>domotique.log</logfile>
+		 <output>data.gp</output>
+	 </server>
 </simulation>

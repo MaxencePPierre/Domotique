@@ -111,16 +111,19 @@ Runner::Runner()
 void Runner::run()
 {
 	*_monServer << "Simulation started";
-	unsigned nticks = static_cast<unsigned>(_paramList[xml::XMLMap::Element::Ticks]);
+	unsigned nticks = static_cast< unsigned >( _paramList[xml::XMLMap::Element::Ticks] );
 	for( unsigned i = 0; i < nticks; i++ )
 	{
-		std::stringstream s;
-		s << "Tick " << i;
-		*_monServer << s;
+		if( i % 10 == 0 )
+		{
+			std::stringstream s;
+			s << "Tick " << i;
+			*_monServer << s;
+		}
 		_monServer->nextTick();
 		for( auto actor : _actors )
 		{
-			actor->Calculate();
+			actor->Calculate( i );
 			_monServer->dataLog( actor->Value() );
 		}
 	}

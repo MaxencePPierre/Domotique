@@ -15,7 +15,7 @@
 
 namespace domotique{ namespace actor {
 
-void State::Calculate()
+void State::Calculate(int tick)
 {
 	double oldvalue = _value;
 	_value = oldvalue

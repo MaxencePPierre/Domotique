@@ -16,7 +16,7 @@ using namespace domotique::xml;
 
 namespace domotique { namespace actor { namespace phenomenon {
 
-void Random::Calculate()
+void Random::Calculate(int tick)
 {
 	_value = _distribution(_generator);
 }

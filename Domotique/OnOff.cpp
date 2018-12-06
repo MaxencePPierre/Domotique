@@ -14,7 +14,7 @@ using namespace domotique::xml;
 
 namespace domotique {namespace actor {namespace controller {
 
-void OnOff::Calculate()
+void OnOff::Calculate(int tick)
 {
 	double stateVal = _state->Value();
 	if(stateVal > _paramList[XMLMap::Element::VTHRMAX])
