@@ -33,7 +33,7 @@ private:
 	std::shared_ptr<Phenomenon> _phenomenon;
 public:
 	/// Formula: \f$value = min\{\text{Value}_{saturation}, \text{Value}_{phenomenon}\}\f$
-	void Calculate();
+	void Calculate(int tick) override;
 
 	/**
 	 * \param node XMLNode which contains the parameters from which to construct the Threshold Controller

@@ -15,7 +15,7 @@ namespace domotique {namespace actor {namespace controller {
 
 class OnOff: public Controller {
 public:
-	void Calculate();
+	void Calculate(int tick) override;
 	OnOff(tinyxml2::XMLNode * node);
 };
 

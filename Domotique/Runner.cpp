@@ -111,19 +111,22 @@ Runner::Runner()
 void Runner::run()
 {
 	*_monServer << "Simulation started";
-	std::cout << "Tick:";
 	unsigned nticks = static_cast< unsigned >( _paramList[xml::XMLMap::Element::Ticks] );
 	for( unsigned i = 0; i < nticks; i++ )
 	{
-		std::stringstream s;
-		s << "Tick " << i;
-		*_monServer << s;
+		if( i % 10 == 0 )
+		{
+			std::stringstream s;
+			s << "Tick " << i;
+			*_monServer << s;
+			std::cout << "  " << i;
 		// Output percentage complete every ten percent
-		if( ( i % ((int)( ( ((float)nticks ) / 10.0) + 0.5) ) ) == 0 && i > 0 ) std::cout << "  " << i << "(" << ( 100 * i ) / nticks << "%)";
+		//if( ( i % ((int)( ( ((float)nticks ) / 10.0) + 0.5) ) ) == 0 && i > 0 ) std::cout << "  " << i << "(" << ( 100 * i ) / nticks << "%)";
+		}
 		_monServer->nextTick();
 		for( auto actor : _actors )
 		{
-			actor->Calculate();
+			actor->Calculate( i );
 			_monServer->dataLog( actor->Value() );
 		}
 	}

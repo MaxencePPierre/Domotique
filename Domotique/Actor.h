@@ -27,8 +27,12 @@ protected:
 	/// The value generated when Calculate() is called
 	double _value = 0;
 public:
-	/// Calculates a new value each timestep based on each actor subtype's internal rules
-	virtual void Calculate() = 0;
+	/* \brief Calculates a new value each timestep based on each actor subtype's internal rules
+	 * Passes tick to those actors that need it.
+	 * Overridden by leaf classes.
+	 * \param tick Current simulation tick.
+	 */
+	virtual void Calculate(int tick) = 0;
 	/// Accessor method for the actor's internal value
 	double Value() const { return _value; };
 };
