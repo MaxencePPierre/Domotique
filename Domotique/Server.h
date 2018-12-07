@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
-
+#include "tinyxml2.h"
 
 namespace domotique { namespace server {
 
@@ -24,6 +24,8 @@ const std::string tab("\t");
 const std::string separator("/");
 const std::string defaultOutputFolder = "log";
 const std::string logFileName = "domotique.log";
+const std::string gnuplotExtension = ".gp";
+const std::string outputFileName = "domotique" + gnuplotExtension;
 
 ///@brief Server class, logs informational messages and gnuplot data
 class Server {
@@ -36,10 +38,12 @@ private:
 	int _tick;
 public:
 	Server();
-	/// @brief Constructs server given name of output folder @param outputFolder Name of folder to put output in @note The output folder must exist
-	Server(std::string outputFolder);
+	// @brief Constructs server given name of output folder @param outputFolder Name of folder to put output in @note The output folder must exist
+	Server(tinyxml2::XMLNode * node);
 	virtual ~Server();
 	void nextTick();
+	void newZone(std::string zoneName);
+	void newActor(std::string zoneName, std::string actorName);
 	// Attributes
 	//string logFile; // Name of the output logFile
 

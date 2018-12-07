@@ -10,18 +10,8 @@
 #include <initializer_list>
 #include <iostream>
 #include <map>
-#include <memory>
 #include <set>
-#include <string>
-#include <iomanip>
-#include "Server.h"
-#include "tinyxml2.h"
-#include "XMLMappings.h"
-#include <sstream>
-#include "Controller.h"
-#include "Phenomenon.h"
-#include "State.h"
-#include <iostream>
+
 #include "Controller.h"
 #include "Phenomenon.h"
 #include "State.h"
@@ -40,16 +30,15 @@ Runner::Runner(std::string configFileName)
 	if( XMLError::XML_SUCCESS != config.LoadFile( configFileName.c_str() ) )
 		throw xml::XMLParseException( "Failed to open config file", __FILE__, __LINE__ );
 	XMLElement* root = config.RootElement();
-
-	// TODO: get filepath from xmlfile
 	// is unique pointer now => destructor called at destruction of this class, not when object goes out of scope :)
-	_monServer = std::unique_ptr< server::Server >( new server::Server( "." ) );
-	*_monServer << "Server created";
+	_monServer = std::unique_ptr< server::Server >(
+			new server::Server(
+					static_cast< XMLNode * >( root->FirstChildElement( xml::XMLMap::BaseElementMap.at( xml::XMLMap::Element::Server ).c_str() ) ) ) );
 	std::vector< XMLElement * > children;
 	for( XMLElement * child = root->FirstChildElement( xml::XMLMap::BaseElementMap.at( xml::XMLMap::Element::Zone ).c_str() ); child;
 			child = child->NextSiblingElement( xml::XMLMap::BaseElementMap.at( xml::XMLMap::Element::Zone ).c_str() ) )
 	{
-		*_monServer << "Starting new zone";
+		_monServer->newZone( child->FindAttribute( XMLMap::AttributeMap[XMLMap::Attributes::Name].c_str() )->Value() );
 		// Pointers to the phenomenon and controller the state will act upon
 		std::shared_ptr< actor::Phenomenon > phenomenon;
 		std::shared_ptr< actor::Controller > controller;
@@ -68,7 +57,6 @@ Runner::Runner(std::string configFileName)
 					break;
 				case XMLMap::Element::State:
 				{
-
 					std::shared_ptr< actor::State > state = std::make_shared< actor::State >( phenomenon, controller, node );
 					_actors.push_back( state );
 					controller->registerState( state );
@@ -79,9 +67,7 @@ Runner::Runner(std::string configFileName)
 					__LINE__ );
 					break;
 			};
-			std::stringstream s;
-			s << "Created new " << node->Value() << " actor :" << _actors.back()->Name();
-			*_monServer << s;
+			_monServer->newActor( child->FindAttribute( XMLMap::AttributeMap[XMLMap::Attributes::Name].c_str() )->Value(), _actors.back()->Name() );
 		}
 		*_monServer << "Finished zone";
 	}
@@ -120,8 +106,8 @@ void Runner::run()
 			s << "Tick " << i;
 			*_monServer << s;
 			std::cout << "  " << i;
-		// Output percentage complete every ten percent
-		//if( ( i % ((int)( ( ((float)nticks ) / 10.0) + 0.5) ) ) == 0 && i > 0 ) std::cout << "  " << i << "(" << ( 100 * i ) / nticks << "%)";
+			// Output percentage complete every ten percent
+			//if( ( i % ((int)( ( ((float)nticks ) / 10.0) + 0.5) ) ) == 0 && i > 0 ) std::cout << "  " << i << "(" << ( 100 * i ) / nticks << "%)";
 		}
 		_monServer->nextTick();
 		for( auto actor : _actors )

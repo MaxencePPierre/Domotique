@@ -64,7 +64,7 @@ public:
 		/* Root element */
 		Simulation,
 		/* Children */
-		Zone, Runner,
+		Zone, Runner, Server,
 		/* Grandchildren */
 		Phenomenon, Controller, State,
 		/* Parameters for controllers, phenomena and states*/

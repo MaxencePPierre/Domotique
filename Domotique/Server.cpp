@@ -7,10 +7,12 @@
 
 #include "Server.h"
 
+#include <algorithm>
 #include <iomanip>
 #include <iostream>
 
 using namespace std;
+using namespace tinyxml2;
 
 namespace domotique {
 namespace server {
@@ -18,31 +20,69 @@ namespace server {
 Server::Server()
 		: _tick( 0 )
 {
+	string logPath = logFileName;
+	logFile.reset( new std::ofstream( logPath.c_str(), ios::out | ios::trunc ) );
+	std::cout << "Log file " << logFileName << " created\n";
+	std::stringstream s;
+	s << "Server created";
+	*this << s;
+	string path = outputFileName;
+	plotDataFiles.emplace_back( std::shared_ptr< std::ofstream >( new ofstream( path.c_str(), ios::out | ios::trunc ) ) );
+	*plotDataFiles.back() << "Tick" ;
+	s.str( "" );
+	s.clear();
+	s << "Opened gnuplot data file " << path << end;
+	cout << s.str();
+	*this << s;
 }
 
-Server::Server(std::string outputFolder)
-		: _tick( 0 )
+//Server::Server(vector<shared_ptr<actor::Actor>>& actors, vector<std::string>& zoneNames)		: _tick( 0 ), filenames(zoneNames)
+Server::Server(XMLNode * node) : Server()
 {
-	string logPath = outputFolder + separator + logFileName;
-	logFile.reset( new std::ofstream( logPath.c_str(), ios::out | ios::trunc ) );
+
+	//filenames.push_back( "data.gp" );
+	//filenames.push_back( "Process_B.gp" );
+
+	//const string metadata = "Tick\tState\tPhenomenon\tController\tState\tPhenomenon\tController";
+
+//	for( auto name : filenames )
+//	{
+//		string path = name;
+//
+//		plotDataFiles.emplace_back( std::shared_ptr< std::ofstream >( new ofstream( path.c_str(), ios::out | ios::trunc ) ) );
+//		*plotDataFiles.back() << "#" + name + domotique::server::end;
+//
+//		cout << "Opening gnuplot data file " << path << " for writing." << endl;
+//	}
+
+}
+
+void Server::newZone(std::string zoneName)
+{
 	std::stringstream s;
-	s << "Log file " << logFileName << " created";
-	*this << "Log file created";
-	filenames.push_back( "data.gp" );
-	filenames.push_back( "Process_B" );
+	s << "Starting new zone : " << zoneName;
+//	string path = zoneName + gnuplotExtension;
+//	plotDataFiles.emplace_back( std::shared_ptr< std::ofstream >( new ofstream( path.c_str(), ios::out | ios::trunc ) ) );
+//	*plotDataFiles.back() << "#" << zoneName << end << "Tick" ;
+//	s.str( "" );
+//	s.clear();
+//	s << "Opened gnuplot data file " << path << end;
+//	cout << s.str();
+//	*this << s;
+}
 
-	const string metadata = "Tick\tState\tPhenomenon\tController\tState\tPhenomenon\tController";
+void Server::newActor(std::string zoneName, std::string actorName)
+{
+	std::stringstream s;
+	s << "Created new actor : " << actorName;
+	*this << s;
+	// For gnuplot header names
+	std::replace(actorName.begin(), actorName.end(), ' ', '_');
+	std::replace(actorName.begin(), actorName.end(), '/', '_');
+	std::replace(zoneName.begin(), zoneName.end(), ' ', '_');
+	std::replace(zoneName.begin(), zoneName.end(), '/', '_');
 
-	for( auto name : filenames )
-	{
-		string path = outputFolder + separator + string( name );
-
-		plotDataFiles.emplace_back( std::shared_ptr< std::ofstream >( new ofstream( path.c_str(), ios::out | ios::trunc ) ) );
-		*plotDataFiles.back() << "#" + name + domotique::server::end << metadata;
-
-		cout << "Opening gnuplot data file " << path << " for writing." << endl;
-	}
-
+	*plotDataFiles.back() << "\t" + zoneName + '_' + actorName;
 }
 
 Server::~Server()

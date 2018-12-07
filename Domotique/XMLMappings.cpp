@@ -12,7 +12,8 @@ namespace domotique{ namespace xml {
 	std::map<XMLMap::Element, const std::string> XMLMap::BaseElementMap = {
 			{Element::Simulation	, "simulation"	},
 			{Element::Zone 			, "zone"		},
-			{Element::Runner 		, "runner"		}
+			{Element::Runner 		, "runner"		},
+			{Element::Server		, "server"		}
 	};
 	std::map<const std::string, XMLMap::Element> XMLMap::ElementMap = {
 			{"phenomenon"			, Element::Phenomenon		},
