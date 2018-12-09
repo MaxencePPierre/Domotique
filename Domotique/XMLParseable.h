@@ -16,6 +16,21 @@
 namespace domotique {
 namespace xml {
 
+union Value {
+	long Long;
+	double Double;
+	char* Str;
+//	Value(long in) { Long = in; }
+//	Value(double in) { Double = in; }
+//	Value(char* in) { Str = in; }
+
+	operator long() const { return Long; }
+	operator double() const { return Double; }
+	operator char*() const { return Str; }
+};
+
+
+
 /**
  * \brief Class with a utility method and member variables to enable xml parsing to be done generically
  *
@@ -31,26 +46,22 @@ protected:
 	 *
 	 * This is populated by the constructor of each class before the Actor::populate function is called to parse the xml
 	 * */
-	std::set<xml::Element> _requiredParams;
+	std::set<Element> _requiredParams;
 	/**
 	 * \brief The set of parameters not strictly necessary for the class to function
 	 *
 	 * This is populated by the constructor of each class before the Actor::populate function is called to parse the xml
-	 * \note No method of assigning default values to optional parameters has yet been implemented. Possibly using a map ( similar to \c _paramList ).
 	 * */
-	std::map<xml::Element, double> _optionalParams;
+	std::map<Element, double> _optionalParams;
 	/**
 	 * \brief Collection of class' parameters
 	 *
 	 * This is a mapping of Element types to values.
 	 * The required value is accessed by using the Element type as a key to the map.
 	 * */
-	std::map<xml::Element, double> _paramList;
-	std::set<xml::Attributes> _requiredAttributes;
-	std::map<xml::Attributes, std::string> _attributeList;
-public:
-	XMLParseable();
-	virtual ~XMLParseable();
+	std::map<Element, double> _paramList;
+	std::set<Attributes> _requiredAttributes;
+	std::map<Attributes, std::string> _attributeList;
 	/**
 	 * \brief Takes \c node and extracts the parameters in \c _requiredParams and \c _optionalParams from its children.
 	 *

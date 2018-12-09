@@ -49,10 +49,10 @@ Sinusoidal::Sinusoidal(XMLNode * node)
 	};
 	_optionalParams =
 	{
-		{	Element::OFFS , 0.0},
-		{	Element::PHASE , 0.0},
-		{	Element::SAT_MAX , std::numeric_limits<double>::infinity()},
-		{	Element::SAT_MIN , -std::numeric_limits<double>::infinity()}
+		{	Element::OFFS , {.Double = 0.0}},
+		{	Element::PHASE , {.Long = 0}},
+		{	Element::SAT_MAX , {.Double = std::numeric_limits<double>::infinity()}},
+		{	Element::SAT_MIN , {.Double = -std::numeric_limits<double>::infinity()}}
 	};
 
 	populate(node);

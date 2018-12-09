@@ -31,10 +31,6 @@ State::State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller>
 			{xml::Element::InfluencePhenomenon},
 			{xml::Element::InfluenceController}
 	};
-	_optionalParams =
-	{
-
-	};
 	populate(node);
 }
 

@@ -32,7 +32,6 @@ OnOff::OnOff(XMLNode * node) {
 			Element::VCTRLMAX,
 			Element::VCTRLMIN
 	};
-//	_optionalParams = {};
 	populate(node);
 }
 

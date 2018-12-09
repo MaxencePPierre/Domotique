@@ -10,6 +10,9 @@
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
+#include <map>
+#include <set>
+
 #include "XMLMappings.h"
 
 using namespace std;
@@ -19,62 +22,48 @@ using namespace domotique::xml;
 namespace domotique {
 namespace server {
 
-Server::Server()
-		: _tick( 0 )
+Server::Server(XMLNode * node)
+		: _tick( 0 ) // : Server()
 {
-	string logPath = logFileName;
-	logFile.reset( new std::ofstream( logPath.c_str(), ios::out | ios::trunc ) );
-	std::cout << "Log file " << logFileName << " created\n";
-	std::stringstream s;
-	s << "Server created";
-	*this << s;
-	string path = outputFileName;
-	plotDataFiles.emplace_back( std::shared_ptr< std::ofstream >( new ofstream( path.c_str(), ios::out | ios::trunc ) ) );
-	*plotDataFiles.back() << "Tick" ;
-	s.str( "" );
-	s.clear();
-	s << "Opened gnuplot data file " << path << end;
-	cout << s.str();
-	*this << s;
-}
+	std::cout << "Creating Server\n";
+	for( XMLElement * child = node->FirstChildElement(); child; child = child->NextSiblingElement() )
+	{
+		Element elem = ElementMap.at(child->Name());
+		switch(elem)
+		{
+			case Element::LogFileName:
+			{
+				std::string logFileName( child->GetText() );
+				if( logFileName.empty() ) throw XMLParseException( "Log file name must not be empty", __FILE__, __LINE__ );
+				logFile.reset( new std::ofstream( logFileName, ios::out | ios::trunc ) );
 
-//Server::Server(vector<shared_ptr<actor::Actor>>& actors, vector<std::string>& zoneNames)		: _tick( 0 ), filenames(zoneNames)
-Server::Server(XMLNode * node) : Server()
-{
-	_optionalParams = {
-			{Element::LogFileName	, 0},
-			{Element::DataFileName	, 0}
-	};
-	populate(node);
-	//filenames.push_back( "data.gp" );
-	//filenames.push_back( "Process_B.gp" );
+				std::cout << "Log file " << logFileName << " created\n";
+				*this << "Server created";
+				break;
+			}
+			case Element::DataFileName:
+			{	std::string dataFileName( child->GetText() );
+				if( dataFileName.empty() ) throw XMLParseException( "Output data file name must not be empty", __FILE__, __LINE__ );
+				dataFile.reset( new ofstream( dataFileName, ios::out | ios::trunc ) );
+				*dataFile << "Tick";
 
-	//const string metadata = "Tick\tState\tPhenomenon\tController\tState\tPhenomenon\tController";
-
-//	for( auto name : filenames )
-//	{
-//		string path = name;
-//
-//		plotDataFiles.emplace_back( std::shared_ptr< std::ofstream >( new ofstream( path.c_str(), ios::out | ios::trunc ) ) );
-//		*plotDataFiles.back() << "#" + name + domotique::server::end;
-//
-//		cout << "Opening gnuplot data file " << path << " for writing." << endl;
-//	}
-
+				std::stringstream s;
+				s << "Data file " << dataFileName << " created";
+				*this << s;
+				s << std::endl;
+				cout << s.str();
+				break;
+			}
+			default:
+				throw XMLParseException( "Undefined argument in server", __FILE__, __LINE__);
+		};
+	}
 }
 
 void Server::newZone(std::string zoneName)
 {
 	std::stringstream s;
 	s << "Starting new zone : " << zoneName;
-//	string path = zoneName + gnuplotExtension;
-//	plotDataFiles.emplace_back( std::shared_ptr< std::ofstream >( new ofstream( path.c_str(), ios::out | ios::trunc ) ) );
-//	*plotDataFiles.back() << "#" << zoneName << end << "Tick" ;
-//	s.str( "" );
-//	s.clear();
-//	s << "Opened gnuplot data file " << path << end;
-//	cout << s.str();
-//	*this << s;
 }
 
 void Server::newActor(std::string zoneName, std::string actorName)
@@ -83,33 +72,29 @@ void Server::newActor(std::string zoneName, std::string actorName)
 	s << "Created new actor : " << actorName;
 	*this << s;
 	// For gnuplot header names
-	std::replace(actorName.begin(), actorName.end(), ' ', '_');
-	std::replace(actorName.begin(), actorName.end(), '/', '_');
-	std::replace(zoneName.begin(), zoneName.end(), ' ', '_');
-	std::replace(zoneName.begin(), zoneName.end(), '/', '_');
+	std::replace( actorName.begin(), actorName.end(), ' ', '_' );
+	std::replace( actorName.begin(), actorName.end(), '/', '_' );
+	std::replace( zoneName.begin(), zoneName.end(), ' ', '_' );
+	std::replace( zoneName.begin(), zoneName.end(), '/', '_' );
 
-	*plotDataFiles.back() << "\t" + zoneName + '_' + actorName;
+	*dataFile << "\t" + zoneName + '_' + actorName;
 }
 
 Server::~Server()
 {
-	for( auto file : plotDataFiles )
-	{
-		*file << end;
-		file->close();
-	}
+	dataFile->close();
 	*this << "Simulation finished";
 	logFile->close();
 }
 
 void Server::nextTick()
 {
-	*plotDataFiles.at( 0 ) << std::endl << _tick << "\t\t";
+	*dataFile  << std::endl << _tick << "\t\t";
 	_tick++;
 }
 void Server::dataLog(double value)
 {
-	*plotDataFiles.at( 0 ) << " " << setw( fieldWidth ) << value;
+	 *dataFile << " " << setw( fieldWidth ) << value;
 }
 
 }

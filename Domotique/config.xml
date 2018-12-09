@@ -39,8 +39,7 @@
 		</state>
 	</zone>
 	 <server>
-<!--
 		 <logfile>domotique.log</logfile>
 		 <datafile>data.gp</datafile>
--->	 </server>
+	 </server>
 </simulation>

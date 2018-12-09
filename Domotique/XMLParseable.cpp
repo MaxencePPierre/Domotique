@@ -83,9 +83,13 @@ void XMLParseable::populate(XMLNode * node)
 		} else
 		{
 			//TODO Generalise method below to include long integers
-			double value = std::stod( textValue );
-			// Add parameter to map
-			_paramList.insert( std::pair< Element, double >( element, value ) );
+			try{
+				double value;
+				value = std::stod( textValue );
+				_paramList.insert( std::pair< Element, double >( element, value ) );
+			} catch (std::invalid_argument& e) {
+				std::cout << textValue << " could not be converted to a double\n";
+			}
 		}
 	}
 
@@ -102,17 +106,5 @@ void XMLParseable::populate(XMLNode * node)
 		if( _paramList.end() == search ) _paramList.insert( optional );
 	}
 }
-
-XMLParseable::XMLParseable()
-{
-	// TODO Auto-generated constructor stub
-
-}
-
-XMLParseable::~XMLParseable()
-{
-	// TODO Auto-generated destructor stub
-}
-
 } /* namespace xml */
 } /* namespace domotique */

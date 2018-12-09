@@ -15,7 +15,6 @@
 #include <vector>
 #include <fstream>
 #include "tinyxml2.h"
-#include "XMLParseable.h"
 
 namespace domotique { namespace server {
 
@@ -23,22 +22,22 @@ namespace domotique { namespace server {
 const std::string end("\n");
 const std::string tab("\t");
 const std::string separator("/");
-const std::string defaultOutputFolder = "log";
-const std::string logFileName = "domotique.log";
-const std::string gnuplotExtension = ".gp";
-const std::string outputFileName = "domotique" + gnuplotExtension;
+//const std::string defaultOutputFolder = "log";
+//const std::string logFileNameDefault = "domotique.log";
+//const std::string gnuplotExtension = ".gp";
+//const std::string outputFileNameDefault = "domotique" + gnuplotExtension;
 
 ///@brief Server class, logs informational messages and gnuplot data
-class Server : public domotique::xml::XMLParseable {
+class Server{
 private:
 	const int fieldWidth = 8;
-	std::vector<std::string> filenames;
-	std::vector<std::shared_ptr<std::ofstream>> plotDataFiles;
+//	std::vector<std::string> filenames;
+//	std::vector<std::shared_ptr<std::ofstream>> plotDataFiles;
 	std::unique_ptr<std::ofstream> logFile;
+	std::unique_ptr<std::ofstream> dataFile;
 	/// Current tick number
 	int _tick;
 public:
-	Server();
 	Server(tinyxml2::XMLNode * node);
 	virtual ~Server();
 	void nextTick();

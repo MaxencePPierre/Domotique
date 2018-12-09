@@ -76,8 +76,6 @@ Runner::Runner(std::string configFileName)
 	{
 		{	xml::Element::Ticks}
 	};
-	_optionalParams =
-	{};
 
 	XMLElement * runnerNode = root->FirstChildElement( xml::BaseElementMap.at( xml::Element::Runner ).c_str() );
 	if( !runnerNode ) throw xml::XMLParseException( "Necessary runner element not found", __FILE__, __LINE__ );
@@ -97,7 +95,7 @@ Runner::Runner()
 void Runner::run()
 {
 	*_monServer << "Simulation started";
-	unsigned nticks = static_cast< unsigned >( _paramList[xml::Element::Ticks] );
+	unsigned nticks = static_cast< unsigned >( _paramList[xml::Element::Ticks]);
 	for( unsigned i = 0; i < nticks; i++ )
 	{
 		if( i % 10 == 0 )
