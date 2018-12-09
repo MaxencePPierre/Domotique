@@ -15,6 +15,7 @@
 #include <vector>
 #include <fstream>
 #include "tinyxml2.h"
+#include "XMLParseable.h"
 
 namespace domotique { namespace server {
 
@@ -28,7 +29,7 @@ const std::string gnuplotExtension = ".gp";
 const std::string outputFileName = "domotique" + gnuplotExtension;
 
 ///@brief Server class, logs informational messages and gnuplot data
-class Server {
+class Server : public domotique::xml::XMLParseable {
 private:
 	const int fieldWidth = 8;
 	std::vector<std::string> filenames;
@@ -38,7 +39,6 @@ private:
 	int _tick;
 public:
 	Server();
-	// @brief Constructs server given name of output folder @param outputFolder Name of folder to put output in @note The output folder must exist
 	Server(tinyxml2::XMLNode * node);
 	virtual ~Server();
 	void nextTick();
@@ -50,7 +50,7 @@ public:
 	// Functions
 	//string getLogFile();
 	//void setLogFile(string fileName);
-	/** @brief logs data produced by triplet
+	/* @brief logs data produced by triplet
 	 * @param triplet reference to Actor triplet
 	 * @param process indexes plotDataFiles to determine which output stream to write to
 	 * @param tick current tick

@@ -31,23 +31,23 @@ protected:
 	 *
 	 * This is populated by the constructor of each class before the Actor::populate function is called to parse the xml
 	 * */
-	std::set<xml::XMLMap::Element> _requiredParams;
+	std::set<xml::Element> _requiredParams;
 	/**
 	 * \brief The set of parameters not strictly necessary for the class to function
 	 *
 	 * This is populated by the constructor of each class before the Actor::populate function is called to parse the xml
 	 * \note No method of assigning default values to optional parameters has yet been implemented. Possibly using a map ( similar to \c _paramList ).
 	 * */
-	std::map<xml::XMLMap::Element, double> _optionalParams;
+	std::map<xml::Element, double> _optionalParams;
 	/**
 	 * \brief Collection of class' parameters
 	 *
 	 * This is a mapping of Element types to values.
 	 * The required value is accessed by using the Element type as a key to the map.
 	 * */
-	std::map<xml::XMLMap::Element, double> _paramList;
-	std::set<xml::XMLMap::Attributes> _requiredAttributes;
-	std::map<xml::XMLMap::Attributes, std::string> _attributeList;
+	std::map<xml::Element, double> _paramList;
+	std::set<xml::Attributes> _requiredAttributes;
+	std::map<xml::Attributes, std::string> _attributeList;
 public:
 	XMLParseable();
 	virtual ~XMLParseable();

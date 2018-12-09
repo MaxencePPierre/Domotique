@@ -26,15 +26,15 @@ Random::Random(tinyxml2::XMLNode * node)
 {
 	_requiredParams =
 	{
-			{XMLMap::Element::ValueHigh},
-			{XMLMap::Element::ValueLow}
+			{Element::ValueHigh},
+			{Element::ValueLow}
 	};
 	_optionalParams =
 	{
 
 	};
 	populate(node);
-	_distribution = std::uniform_real_distribution<double>(_paramList[XMLMap::Element::ValueLow], _paramList[XMLMap::Element::ValueHigh]);
+	_distribution = std::uniform_real_distribution<double>(_paramList[Element::ValueLow], _paramList[Element::ValueHigh]);
 }
 
 Random::~Random() {

@@ -17,8 +17,8 @@
 
 using namespace tinyxml2;
 using namespace domotique::actor::phenomenon;
+using namespace domotique::xml;
 
-using domotique::xml::XMLMap;
 namespace domotique {
 namespace actor {
 
@@ -42,14 +42,14 @@ double Phenomenon::BoxMuller(double mu, double sigma)
 std::shared_ptr< Phenomenon > Phenomenon::makePhenomenon(XMLNode * node)
 {
 	std::shared_ptr< Phenomenon > phenomenon;
-	XMLMap::ElementType type = XMLMap::ElementTypeMap.at(
-			node->ToElement()->FindAttribute( XMLMap::AttributeMap[XMLMap::Attributes::Type].c_str() )->Value() );
+	ElementType type = ElementTypeMap.at(
+			node->ToElement()->FindAttribute( AttributeMap.at(Attributes::Type).c_str() )->Value() );
 	switch(type)
 	{
-		case XMLMap::ElementType::Sinusoidal:
+		case ElementType::Sinusoidal:
 			phenomenon.reset( new Sinusoidal( node ) );
 			break;
-		case XMLMap::ElementType::Random:
+		case ElementType::Random:
 			phenomenon.reset( new Random( node ) );
 			break;
 		default:

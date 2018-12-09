@@ -19,8 +19,8 @@ void State::Calculate(int tick)
 {
 	double oldvalue = _value;
 	_value = oldvalue
-			+ ((_phenomenon->Value() - oldvalue) * _paramList[xml::XMLMap::Element::InfluencePhenomenon])
-			+ ((_controller->Value() - oldvalue) * _paramList[xml::XMLMap::Element::InfluenceController]);
+			+ ((_phenomenon->Value() - oldvalue) * _paramList[xml::Element::InfluencePhenomenon])
+			+ ((_controller->Value() - oldvalue) * _paramList[xml::Element::InfluenceController]);
 }
 
 State::State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller> controller, tinyxml2::XMLNode * node)
@@ -28,8 +28,8 @@ State::State(std::shared_ptr<Phenomenon> phenomenon, std::shared_ptr<Controller>
 {
 	_requiredParams =
 	{
-			{xml::XMLMap::Element::InfluencePhenomenon},
-			{xml::XMLMap::Element::InfluenceController}
+			{xml::Element::InfluencePhenomenon},
+			{xml::Element::InfluenceController}
 	};
 	_optionalParams =
 	{

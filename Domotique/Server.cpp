@@ -10,9 +10,11 @@
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
+#include "XMLMappings.h"
 
 using namespace std;
 using namespace tinyxml2;
+using namespace domotique::xml;
 
 namespace domotique {
 namespace server {
@@ -39,7 +41,11 @@ Server::Server()
 //Server::Server(vector<shared_ptr<actor::Actor>>& actors, vector<std::string>& zoneNames)		: _tick( 0 ), filenames(zoneNames)
 Server::Server(XMLNode * node) : Server()
 {
-
+	_optionalParams = {
+			{Element::LogFileName	, 0},
+			{Element::DataFileName	, 0}
+	};
+	populate(node);
 	//filenames.push_back( "data.gp" );
 	//filenames.push_back( "Process_B.gp" );
 

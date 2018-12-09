@@ -29,21 +29,21 @@ void XMLParseable::populate(XMLNode * node)
 			s << "Failed to convert " << node->Value() << " node to an element";
 			throw XMLParseException(s.str().c_str(), __FILE__, __LINE__);
 		}
-		const XMLAttribute * xmlAttribute = element->FindAttribute( XMLMap::AttributeMap[attribute].c_str() );
+		const XMLAttribute * xmlAttribute = element->FindAttribute( AttributeMap.at(attribute).c_str() );
 		if(!xmlAttribute)
 		{
 			std::stringstream s;
-			s << "Attribute " << XMLMap::AttributeMap[attribute] << " from required attributes list not found in " << node->Value() << " element";
+			s << "Attribute " << AttributeMap.at(attribute) << " from required attributes list not found in " << node->Value() << " element";
 			throw XMLParseException(s.str().c_str(), __FILE__, __LINE__);
 		}
 		std::string value = xmlAttribute->Value();
 		if( value.empty())
 		{
 			std::stringstream s;
-			s << "Attribute " << XMLMap::AttributeMap[attribute] << " does not have a value in " << node->Value() << " element";
+			s << "Attribute " << AttributeMap.at(attribute) << " does not have a value in " << node->Value() << " element";
 			throw XMLParseException(s.str().c_str(), __FILE__, __LINE__);
 		}
-		_attributeList.insert(std::pair< XMLMap::Attributes, std::string>( attribute, value) );
+		_attributeList.insert(std::pair< Attributes, std::string>( attribute, value) );
 	}
 
 	// Read all children ( i.e. parameters ) into vector for later processing
@@ -54,7 +54,7 @@ void XMLParseable::populate(XMLNode * node)
 	// Attempt to read parameters into _paramList, matched with their values
 	for( auto * child : children )
 	{
-		XMLMap::Element element = XMLMap::ElementMap[child->Name()];
+		Element element = ElementMap.at(child->Name());
 		auto reqParam = _requiredParams.find( element );
 		if( _requiredParams.end() == reqParam )
 		{
@@ -64,7 +64,7 @@ void XMLParseable::populate(XMLNode * node)
 				//parameter not in parameter list for this class
 				std::stringstream s;
 				s << "Parameter " << child->Name() << " read from config file is neither an optional nor required parameter for the "
-						<< node->ToElement()->FindAttribute( XMLMap::AttributeMap[XMLMap::Attributes::Type].c_str() )->Value() << " actor";
+						<< node->ToElement()->FindAttribute( AttributeMap.at(Attributes::Type).c_str() )->Value() << " actor";
 				throw XMLParseException( s.str().c_str(), __FILE__, __LINE__ );
 			}
 		}
@@ -85,7 +85,7 @@ void XMLParseable::populate(XMLNode * node)
 			//TODO Generalise method below to include long integers
 			double value = std::stod( textValue );
 			// Add parameter to map
-			_paramList.insert( std::pair< XMLMap::Element, double >( element, value ) );
+			_paramList.insert( std::pair< Element, double >( element, value ) );
 		}
 	}
 

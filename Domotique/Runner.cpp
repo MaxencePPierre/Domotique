@@ -33,29 +33,29 @@ Runner::Runner(std::string configFileName)
 	// is unique pointer now => destructor called at destruction of this class, not when object goes out of scope :)
 	_monServer = std::unique_ptr< server::Server >(
 			new server::Server(
-					static_cast< XMLNode * >( root->FirstChildElement( xml::XMLMap::BaseElementMap.at( xml::XMLMap::Element::Server ).c_str() ) ) ) );
+					static_cast< XMLNode * >( root->FirstChildElement( xml::BaseElementMap.at( xml::Element::Server ).c_str() ) ) ) );
 	std::vector< XMLElement * > children;
-	for( XMLElement * child = root->FirstChildElement( xml::XMLMap::BaseElementMap.at( xml::XMLMap::Element::Zone ).c_str() ); child;
-			child = child->NextSiblingElement( xml::XMLMap::BaseElementMap.at( xml::XMLMap::Element::Zone ).c_str() ) )
+	for( XMLElement * child = root->FirstChildElement( xml::BaseElementMap.at( xml::Element::Zone ).c_str() ); child;
+			child = child->NextSiblingElement( xml::BaseElementMap.at( xml::Element::Zone ).c_str() ) )
 	{
-		_monServer->newZone( child->FindAttribute( XMLMap::AttributeMap[XMLMap::Attributes::Name].c_str() )->Value() );
+		_monServer->newZone( child->FindAttribute( AttributeMap.at(Attributes::Name).c_str() )->Value() );
 		// Pointers to the phenomenon and controller the state will act upon
 		std::shared_ptr< actor::Phenomenon > phenomenon;
 		std::shared_ptr< actor::Controller > controller;
 		for( XMLNode * node = child->FirstChild(); node; node = node->NextSibling() )
 		{
-			XMLMap::Element actorType = XMLMap::ElementMap.at( node->Value() );
+			Element actorType = ElementMap.at( node->Value() );
 			switch(actorType)
 			{
-				case XMLMap::Element::Phenomenon:
+				case Element::Phenomenon:
 					phenomenon = actor::Phenomenon::makePhenomenon( node );
 					_actors.push_back( phenomenon );
 					break;
-				case XMLMap::Element::Controller:
+				case Element::Controller:
 					controller = actor::Controller::makeController( node );
 					_actors.push_back( controller );
 					break;
-				case XMLMap::Element::State:
+				case Element::State:
 				{
 					std::shared_ptr< actor::State > state = std::make_shared< actor::State >( phenomenon, controller, node );
 					_actors.push_back( state );
@@ -67,23 +67,23 @@ Runner::Runner(std::string configFileName)
 					__LINE__ );
 					break;
 			};
-			_monServer->newActor( child->FindAttribute( XMLMap::AttributeMap[XMLMap::Attributes::Name].c_str() )->Value(), _actors.back()->Name() );
+			_monServer->newActor( child->FindAttribute( AttributeMap.at(Attributes::Name).c_str() )->Value(), _actors.back()->Name() );
 		}
 		*_monServer << "Finished zone";
 	}
 
 	_requiredParams =
 	{
-		{	xml::XMLMap::Element::Ticks}
+		{	xml::Element::Ticks}
 	};
 	_optionalParams =
 	{};
 
-	XMLElement * runnerNode = root->FirstChildElement( xml::XMLMap::BaseElementMap.at( xml::XMLMap::Element::Runner ).c_str() );
+	XMLElement * runnerNode = root->FirstChildElement( xml::BaseElementMap.at( xml::Element::Runner ).c_str() );
 	if( !runnerNode ) throw xml::XMLParseException( "Necessary runner element not found", __FILE__, __LINE__ );
 	populate( runnerNode );
 	std::stringstream s;
-	s << "Preparing to run simulation for " << _paramList[xml::XMLMap::Element::Ticks] << " ticks";
+	s << "Preparing to run simulation for " << _paramList[xml::Element::Ticks] << " ticks";
 	*_monServer << s;
 }
 
@@ -97,7 +97,7 @@ Runner::Runner()
 void Runner::run()
 {
 	*_monServer << "Simulation started";
-	unsigned nticks = static_cast< unsigned >( _paramList[xml::XMLMap::Element::Ticks] );
+	unsigned nticks = static_cast< unsigned >( _paramList[xml::Element::Ticks] );
 	for( unsigned i = 0; i < nticks; i++ )
 	{
 		if( i % 10 == 0 )

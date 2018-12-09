@@ -16,22 +16,22 @@
 
 using namespace tinyxml2;
 using namespace domotique::actor::controller;
-using domotique::xml::XMLMap;
+using namespace domotique::xml;
 
 namespace domotique {
 namespace actor {
 std::shared_ptr< Controller > Controller::makeController(XMLNode * node)
 {
 	std::shared_ptr< Controller > controller;
-	XMLMap::ElementType type = XMLMap::ElementTypeMap.at(
+	ElementType type = ElementTypeMap.at(
 			node->ToElement()->FindAttribute(
-					XMLMap::AttributeMap[XMLMap::Attributes::Type].c_str() )->Value() );
+					AttributeMap.at(Attributes::Type).c_str() )->Value() );
 	switch(type)
 	{
-		case XMLMap::ElementType::OnOff:
+		case ElementType::OnOff:
 			controller.reset( new OnOff( node ) );
 			break;
-		case XMLMap::ElementType::Proportional:
+		case ElementType::Proportional:
 			controller.reset( new Proportional( node ) );
 			break;
 		default:

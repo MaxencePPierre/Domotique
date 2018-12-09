@@ -17,22 +17,22 @@ namespace domotique {namespace actor {namespace controller {
 void OnOff::Calculate(int tick)
 {
 	double stateVal = _state->Value();
-	if(stateVal > _paramList[XMLMap::Element::VTHRMAX])
-		_value = _paramList[XMLMap::Element::VCTRLMIN];
-	else if(stateVal > _paramList[XMLMap::Element::VTHRMIN])
-		_value = _paramList[XMLMap::Element::VCTRLMAX];
+	if(stateVal > _paramList[Element::VTHRMAX])
+		_value = _paramList[Element::VCTRLMIN];
+	else if(stateVal > _paramList[Element::VTHRMIN])
+		_value = _paramList[Element::VCTRLMAX];
 	else
 		_value = stateVal;
 }
 
 OnOff::OnOff(XMLNode * node) {
 	_requiredParams = {
-			XMLMap::Element::VTHRMAX,
-			XMLMap::Element::VTHRMIN,
-			XMLMap::Element::VCTRLMAX,
-			XMLMap::Element::VCTRLMIN
+			Element::VTHRMAX,
+			Element::VTHRMIN,
+			Element::VCTRLMAX,
+			Element::VCTRLMIN
 	};
-	_optionalParams = {};
+//	_optionalParams = {};
 	populate(node);
 }
 

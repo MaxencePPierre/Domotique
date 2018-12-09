@@ -17,13 +17,13 @@ namespace domotique{ namespace actor{ namespace controller {
 void Threshold::Calculate(int tick)
 {
 	double phalue = _phenomenon->Value();
-	_value = (phalue > _paramList[XMLMap::Element::Saturation]) ? _paramList[XMLMap::Element::Saturation] : phalue;
+	_value = (phalue > _paramList[Element::Saturation]) ? _paramList[Element::Saturation] : phalue;
 }
 
 Threshold::Threshold(tinyxml2::XMLNode * node, std::shared_ptr<Phenomenon> phenomenon): _phenomenon(phenomenon)
 {
 	_requiredParams = {
-			{XMLMap::Element::Saturation}
+			{Element::Saturation}
 	};
 	_optionalParams = {};
 	populate(node);
