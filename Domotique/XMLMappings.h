@@ -70,6 +70,7 @@ enum class Element
 	VTHRMAX, VTHRMIN, VCTRLMAX, VCTRLMIN,	// OnOff
 	SETPT, GAIN,							// Proportional
 	OFFS, AMPL, PHASE, PERIOD, SAT_MAX, SAT_MIN,	// Sinusoidal
+	VLOW, VHIGH, TDEL, TRISE, TFALL, PWIDTH,		// Pulsed
 	/* Parameters for the control classes of Server and Runner */
 	Ticks, LogFileName, DataFileName
 };
@@ -116,7 +117,12 @@ const std::map<const std::string, Element> ElementMap = {
 		{"PHASE"				, Element::PHASE			},
 		{"PERIOD"				, Element::PERIOD			},
 		{"SAT_MAX"				, Element::SAT_MAX			},
-		{"SAT_MIN"				, Element::SAT_MIN			},
+		{"VLOW"					, Element::VLOW				},
+		{"VHIGH"				, Element::VHIGH			},
+		{"TDEL"					, Element::TDEL				},
+		{"TRISE"				, Element::TRISE			},
+		{"TFALL"				, Element::TFALL			},
+		{"PWIDTH"				, Element::PWIDTH			},
 		{"logfile"				, Element::LogFileName		},
 		{"datafile"				, Element::DataFileName		}
 };
