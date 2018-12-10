@@ -11,6 +11,7 @@
 #include <cmath>
 #include <memory>
 
+#include <random>
 #include "Actor.h"
 #include "tinyxml2.h"
 
@@ -25,8 +26,10 @@ const double pi = std::acos( -1 );
  */
 class Phenomenon: public Actor {
 protected:
-	double BoxMuller(double mu, double sigma = standardDeviation);
+	static double BoxMuller(double mu, double sigma = standardDeviation);
 public:
+	static std::default_random_engine generator;
+	static std::uniform_real_distribution<double> uniform;
 	static constexpr double standardDeviation = 80.0;
 	static std::shared_ptr<Phenomenon> makePhenomenon(tinyxml2::XMLNode * node);
 };

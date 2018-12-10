@@ -6,7 +6,7 @@
 			<OFFS></OFFS>
 			<AMPL>10</AMPL>
 			<PHASE></PHASE>
-			<PERIOD>10</PERIOD>
+			<PERIOD>5</PERIOD>
 			<SAT_MAX></SAT_MAX>
 			<SAT_MIN></SAT_MIN>
 		</phenomenon>
@@ -17,8 +17,8 @@
 			<VCTRLMIN>-3</VCTRLMIN>
 		</controller>
 		<state name="Room" type="State">
-			<influencePhenomenon>0.005</influencePhenomenon>
-			<influenceController>0.1</influenceController>
+			<influencePhenomenon>0.05</influencePhenomenon>
+			<influenceController>0.15</influenceController>
 		</state>
 	</zone>
 	<runner>
@@ -30,12 +30,12 @@
 			<valueHigh>6</valueHigh>
 		</phenomenon>
 		<controller name="Lock" type="Proportional">
-			<SETPT>19</SETPT>
+			<SETPT>10</SETPT>
 			<GAIN></GAIN>
 		</controller>
 		<state name="Canal" type="State">
-			<influencePhenomenon>0.001</influencePhenomenon>
-			<influenceController>0.9</influenceController>
+			<influencePhenomenon>0.01</influencePhenomenon>
+			<influenceController>0.5</influenceController>
 		</state>
 	</zone>
 	 <server>
