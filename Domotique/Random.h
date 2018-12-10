@@ -23,7 +23,7 @@ private:
 	std::default_random_engine _generator;
 	std::uniform_real_distribution<double> _distribution;
 public:
-	void Calculate();
+	void Calculate(int tick) override;
 	/**
 	 * \brief Constructor, defines required parameters, calls XMLParseable::process() to extract them
 	 * */

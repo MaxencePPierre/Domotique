@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE simulation>
 <simulation name="Phase One test simulation">
-	<process name="Temperature">
-		<phenomenon name="External Temperature" type="Random">
-			<valueLow>-80</valueLow>
-			<valueHigh>10</valueHigh>
+	<zone name="Temperature">
+		<phenomenon name="External Temperature" type="Sinusoidal">
+			<OFFS></OFFS>
+			<AMPL>10</AMPL>
+			<PHASE></PHASE>
+			<PERIOD>10</PERIOD>
+			<SAT_MAX></SAT_MAX>
+			<SAT_MIN></SAT_MIN>
 		</phenomenon>
-		<controller name="Heater/cooler" type="Threshold">
-			<saturation>-50</saturation>
+		<controller name="Heater/cooler" type="OnOff">
+			<VTHRMAX>5</VTHRMAX>
+			<VTHRMIN>-5</VTHRMIN>
+			<VCTRLMAX>3</VCTRLMAX>
+			<VCTRLMIN>-3</VCTRLMIN>
 		</controller>
 		<state name="Room" type="State">
-			<influencePhenomenon>0.1</influencePhenomenon>
-			<influenceController>0.09</influenceController>
+			<influencePhenomenon>0.005</influencePhenomenon>
+			<influenceController>0.1</influenceController>
 		</state>
-	</process>
+	</zone>
 	<runner>
-		<ticks>52</ticks>
+		<ticks>99.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999</ticks>
 	</runner>
-	<process name="Flooding">
+	<zone name="Flooding">
 		<phenomenon name="Water height" type="Random">
 			<valueLow>0</valueLow>
 			<valueHigh>6</valueHigh>
 		</phenomenon>
-		<controller name="Lock" type="Threshold">
-			<saturation>5</saturation>
+		<controller name="Lock" type="Proportional">
+			<SETPT>19</SETPT>
+			<GAIN></GAIN>
 		</controller>
 		<state name="Canal" type="State">
 			<influencePhenomenon>0.001</influencePhenomenon>
 			<influenceController>0.9</influenceController>
 		</state>
-	</process>
+	</zone>
+	 <server>
+		 <logfile>domotique.log</logfile>
+		 <datafile>data.gp</datafile>
+	 </server>
 </simulation>

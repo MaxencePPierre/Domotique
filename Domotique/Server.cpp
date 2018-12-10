@@ -7,62 +7,94 @@
 
 #include "Server.h"
 
-#include <vector>
-
-#include <iostream>
+#include <algorithm>
 #include <iomanip>
-#include <fstream>
-#include <string>
-#include <memory>
+#include <iostream>
+#include <map>
+#include <set>
+
+#include "XMLMappings.h"
 
 using namespace std;
+using namespace tinyxml2;
+using namespace domotique::xml;
 
 namespace domotique {
 namespace server {
 
-Server::Server() {}
+Server::Server(XMLNode * node)
+		: _tick( 0 ) // : Server()
+{
+	std::cout << "Creating Server\n";
+	for( XMLElement * child = node->FirstChildElement(); child; child = child->NextSiblingElement() )
+	{
+		Element elem = ElementMap.at(child->Name());
+		switch(elem)
+		{
+			case Element::LogFileName:
+			{
+				std::string logFileName( child->GetText() );
+				if( logFileName.empty() ) throw XMLParseException( "Log file name must not be empty", __FILE__, __LINE__ );
+				logFile.reset( new std::ofstream( logFileName, ios::out | ios::trunc ) );
 
-Server::Server(std::string outputFolder) {
-	string logPath = outputFolder + separator + logFileName;
-	logFile.reset(new std::ofstream(logPath.c_str(), ios::out | ios::trunc ));
-	*this << "Log file created";
-	filenames.push_back("Process_A");
-	filenames.push_back("Process_B");
+				std::cout << "Log file " << logFileName << " created\n";
+				*this << "Server created";
+				break;
+			}
+			case Element::DataFileName:
+			{	std::string dataFileName( child->GetText() );
+				if( dataFileName.empty() ) throw XMLParseException( "Output data file name must not be empty", __FILE__, __LINE__ );
+				dataFile.reset( new ofstream( dataFileName, ios::out | ios::trunc ) );
+				*dataFile << "Tick";
 
-	const string metadata = "# Tick	\tState	\tPhen	\tCtrl\n";
-
-	for (auto name : filenames) {
-		string path = outputFolder + separator + string(name) + string(".gp");
-
-		plotDataFiles.emplace_back(std::shared_ptr<std::ofstream>(new ofstream(path.c_str(), ios::out | ios::trunc )));
-		*plotDataFiles.back() << "#" + name + domotique::server::end << metadata;
-
-		cout << "Opening gnuplot data file " << path << " for writing." << endl;
+				std::stringstream s;
+				s << "Data file " << dataFileName << " created";
+				*this << s;
+				s << std::endl;
+				cout << s.str();
+				break;
+			}
+			default:
+				throw XMLParseException( "Undefined argument in server", __FILE__, __LINE__);
+		};
 	}
-
 }
 
-Server::~Server() {
-	for (auto file : plotDataFiles)
-		file->close();
+void Server::newZone(std::string zoneName)
+{
+	std::stringstream s;
+	s << "Starting new zone : " << zoneName;
+}
+
+void Server::newActor(std::string zoneName, std::string actorName)
+{
+	std::stringstream s;
+	s << "Created new actor : " << actorName;
+	*this << s;
+	// For gnuplot header names
+	std::replace( actorName.begin(), actorName.end(), ' ', '_' );
+	std::replace( actorName.begin(), actorName.end(), '/', '_' );
+	std::replace( zoneName.begin(), zoneName.end(), ' ', '_' );
+	std::replace( zoneName.begin(), zoneName.end(), '/', '_' );
+
+	*dataFile << "\t" + zoneName + '_' + actorName;
+}
+
+Server::~Server()
+{
+	dataFile->close();
+	*this << "Simulation finished";
 	logFile->close();
 }
 
-/*
- string Server::getLogFile() {
- //return this->logFile;
- }
-
- void Server::setLogFile(string fileName) {
- this->logFile = fileName;
- }*/
-
-void Server::dataLog(domotique::process::Process& triplet, int process, int tick) {
-//	cout << "Writing into : " << process << "\n";
-	(*plotDataFiles.at(process)) << tick << "\t\t" << std::setw(fieldWidth)
-			<< triplet.Values()[process::ActorType::State] << "\t" << std::setw(fieldWidth)
-			<< triplet.Values()[process::ActorType::Phenomenon] << "\t" << std::setw(fieldWidth)
-			<< triplet.Values()[process::ActorType::Controller] << "\n";
+void Server::nextTick()
+{
+	*dataFile  << std::endl << _tick << "\t\t";
+	_tick++;
+}
+void Server::dataLog(double value)
+{
+	 *dataFile << " " << setw( fieldWidth ) << value;
 }
 
 }

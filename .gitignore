@@ -6,3 +6,5 @@ Domotique/.settings
 Domotique/html
 Domotique/latex
 Domotique/log
+Domotique/*.log
+Domotique/*.gp

@@ -8,10 +8,15 @@
 #ifndef PHENOMENON_H_
 #define PHENOMENON_H_
 
+#include <cmath>
+#include <memory>
+
 #include "Actor.h"
 #include "tinyxml2.h"
 
 namespace domotique{ namespace actor {
+
+const double pi = std::acos( -1 );
 
 /**
  * \brief Specific methods and members needed for phenomena
@@ -20,10 +25,10 @@ namespace domotique{ namespace actor {
  */
 class Phenomenon: public Actor {
 protected:
-	/* not needed for phase one
-	double BoxMuller(double mu, double sigma);
-	*/
+	double BoxMuller(double mu, double sigma = standardDeviation);
 public:
+	static constexpr double standardDeviation = 80.0;
+	static std::shared_ptr<Phenomenon> makePhenomenon(tinyxml2::XMLNode * node);
 };
 
 }}

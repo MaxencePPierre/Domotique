@@ -8,14 +8,13 @@
 #ifndef SERVER_H_
 #define SERVER_H_
 
-#include <string>
-#include <sstream>
+#include <ctime>
 #include <memory>
+#include <sstream>
+#include <string>
 #include <vector>
 #include <fstream>
-#include <ctime>
-
-#include "Process.h"
+#include "tinyxml2.h"
 
 namespace domotique { namespace server {
 
@@ -23,35 +22,40 @@ namespace domotique { namespace server {
 const std::string end("\n");
 const std::string tab("\t");
 const std::string separator("/");
-const std::string defaultOutputFolder = "log";
-const std::string logFileName = "domotique.log";
+//const std::string defaultOutputFolder = "log";
+//const std::string logFileNameDefault = "domotique.log";
+//const std::string gnuplotExtension = ".gp";
+//const std::string outputFileNameDefault = "domotique" + gnuplotExtension;
 
 ///@brief Server class, logs informational messages and gnuplot data
-class Server {
+class Server{
 private:
 	const int fieldWidth = 8;
-	std::vector<std::string> filenames;
-	std::vector<std::shared_ptr<std::ofstream>> plotDataFiles;
+//	std::vector<std::string> filenames;
+//	std::vector<std::shared_ptr<std::ofstream>> plotDataFiles;
 	std::unique_ptr<std::ofstream> logFile;
-
+	std::unique_ptr<std::ofstream> dataFile;
+	/// Current tick number
+	int _tick;
 public:
-	Server();
-	/// @brief Constructs server given name of output folder @param outputFolder Name of folder to put output in @note The output folder must exist
-	Server(std::string outputFolder);
+	Server(tinyxml2::XMLNode * node);
 	virtual ~Server();
-
+	void nextTick();
+	void newZone(std::string zoneName);
+	void newActor(std::string zoneName, std::string actorName);
 	// Attributes
 	//string logFile; // Name of the output logFile
 
 	// Functions
 	//string getLogFile();
 	//void setLogFile(string fileName);
-	/** @brief logs data produced by triplet
+	/* @brief logs data produced by triplet
 	 * @param triplet reference to Actor triplet
 	 * @param process indexes plotDataFiles to determine which output stream to write to
 	 * @param tick current tick
 	*/
-	void dataLog(domotique::process::Process& triplet, int process, int tick);
+//	void dataLog(domotique::zone::Zone& triplet, int process, int tick);
+	void dataLog(double value);
 	/**
 	 * \brief Templated stream input operator for logging.
 	 *
@@ -68,7 +72,7 @@ public:
 		std::tm* now = std::localtime(&time);
 		*(s.logFile)
 				<< "["
-				<< (now->tm_year + 1900) << "-" << (now->tm_mon) << "-" << (now->tm_mday) << "T"
+				<< (now->tm_year + 1900) << "-" << (now->tm_mon +1) << "-" << (now->tm_mday) << "T"
 				<< (now->tm_hour) << ":" << (now->tm_min) << ":" << (now->tm_sec) << " " << (now->tm_zone)
 				<< "]" << " "
 				<< t << std::endl;
