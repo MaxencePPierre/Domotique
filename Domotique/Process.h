@@ -36,6 +36,7 @@ private:
 	std::shared_ptr<actor::Phenomenon> _phenomenon;
 	std::shared_ptr<actor::Controller> _controller;
 	std::unique_ptr<actor::State> _state;
+	std::string name;
 
 public:
 	/**

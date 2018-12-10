@@ -24,6 +24,7 @@ void Process::CalculateAll()
 	_phenomenon->Calculate();
 	_controller->Calculate();
 	_state->Calculate();
+
 }
 
 std::map<ActorType, double> Process::Values()
@@ -43,7 +44,7 @@ Process::Process(XMLNode * node)
 		children.push_back(child);
 
 	}
-
+	//name(node->ToElement()->FindAttribute(XMLMap::AttributeMap[XMLMap::Attributes::Type].c_str())->Value());
 	for(XMLNode* child : children)
 	{
 		//TODO: replace this with a factory

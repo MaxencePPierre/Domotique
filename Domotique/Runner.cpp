@@ -39,6 +39,7 @@ Runner::Runner(std::string configFileName) {
 					xml::XMLMap::BaseElementMap.at(
 							xml::XMLMap::Element::Process).c_str()))
 	{
+		// TODO : Process name output file
 		children.push_back(child);
 	}
 	for (auto * child : children) {
