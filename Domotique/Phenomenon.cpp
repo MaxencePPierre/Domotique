@@ -24,8 +24,7 @@ namespace actor {
 
 double Phenomenon::BoxMuller(double mu, double sigma)
 {
-	std::default_random_engine generator;
-	std::uniform_real_distribution<double> uniform(0.0, 1.0);
+
 	// uniform random variables E ]0,1[
 	double x1 = uniform(generator);
 	double x2 = uniform(generator);
@@ -39,8 +38,10 @@ double Phenomenon::BoxMuller(double mu, double sigma)
 	return z;
 }
 
+
 std::shared_ptr< Phenomenon > Phenomenon::makePhenomenon(XMLNode * node)
 {
+	uniform = std::uniform_real_distribution<double>(0.0,1.0);
 	std::shared_ptr< Phenomenon > phenomenon;
 	ElementType type = ElementTypeMap.at(
 			node->ToElement()->FindAttribute( AttributeMap.at(Attributes::Type).c_str() )->Value() );

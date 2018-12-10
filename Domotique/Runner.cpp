@@ -38,6 +38,7 @@ Runner::Runner(std::string configFileName)
 	for( XMLElement * child = root->FirstChildElement( xml::BaseElementMap.at( xml::Element::Zone ).c_str() ); child;
 			child = child->NextSiblingElement( xml::BaseElementMap.at( xml::Element::Zone ).c_str() ) )
 	{
+
 		_monServer->newZone( child->FindAttribute( AttributeMap.at(Attributes::Name).c_str() )->Value() );
 		// Pointers to the phenomenon and controller the state will act upon
 		std::shared_ptr< actor::Phenomenon > phenomenon;

@@ -31,7 +31,7 @@ void Sinusoidal::Calculate(int tick)
 					* std::sin(
 							( 2 * pi * ( tick + static_cast< long int >( _paramList[Element::PHASE] ) ) )
 									/ ( static_cast< long int >( _paramList[Element::PERIOD] ) ) );
-	intermediateValue = BoxMuller(intermediateValue);
+	intermediateValue += BoxMuller(0,1);
 	if(intermediateValue > _paramList[Element::SAT_MAX])
 		_value = _paramList[Element::SAT_MAX];
 	else if(intermediateValue < _paramList[Element::SAT_MIN])
