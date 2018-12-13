@@ -22,9 +22,13 @@ using namespace domotique::xml;
 namespace domotique {
 namespace actor {
 
+Phenomenon::Phenomenon()
+{
+	uniform = std::uniform_real_distribution<double>(0.0,1.0);
+}
+
 double Phenomenon::BoxMuller(double mu, double sigma)
 {
-
 	// uniform random variables E ]0,1[
 	double x1 = uniform(generator);
 	double x2 = uniform(generator);
@@ -41,7 +45,6 @@ double Phenomenon::BoxMuller(double mu, double sigma)
 
 std::shared_ptr< Phenomenon > Phenomenon::makePhenomenon(XMLNode * node)
 {
-	uniform = std::uniform_real_distribution<double>(0.0,1.0);
 	std::shared_ptr< Phenomenon > phenomenon;
 	ElementType type = ElementTypeMap.at(
 			node->ToElement()->FindAttribute( AttributeMap.at(Attributes::Type).c_str() )->Value() );

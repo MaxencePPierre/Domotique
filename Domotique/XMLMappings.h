@@ -84,7 +84,7 @@ enum class Attributes
 /// The allowed values of the \c Attributes::Type attribute: subclasses of Phenomenon and Controller, along with the State class.
 enum class ElementType
 {
-	None, Random, Threshold, State, OnOff, Proportional, Sinusoidal
+	None, Random, Threshold, State, OnOff, Proportional, Sinusoidal, Pulsed
 };
 
 /// Map relating a given XML element to its string representation, contains only the root element Element::Simulation and its direct descendants
@@ -141,7 +141,8 @@ const std::map<const std::string, ElementType> ElementTypeMap = {
 		{"State"				, ElementType::State},
 		{"OnOff"				, ElementType::OnOff},
 		{"Proportional"			, ElementType::Proportional},
-		{"Sinusoidal"			, ElementType::Sinusoidal}
+		{"Sinusoidal"			, ElementType::Sinusoidal},
+		{"Pulsed"				, ElementType::Pulsed}
 };
 
 

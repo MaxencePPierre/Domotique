@@ -37,7 +37,7 @@ void Sinusoidal::Calculate(int tick)
 	else if(intermediateValue < _paramList[Element::SAT_MIN])
 		_value = _paramList[Element::SAT_MIN];
 	else
-	_value = intermediateValue;
+		_value = intermediateValue;
 }
 
 Sinusoidal::Sinusoidal(XMLNode * node)

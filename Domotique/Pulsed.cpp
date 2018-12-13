@@ -20,13 +20,13 @@ Pulsed::Pulsed(XMLNode* node)
 	_requiredParams = {
 			Element::VLOW,
 			Element::VHIGH,
-			Element::TDEL,
+			Element::TRISE,
 			Element::TFALL,
 			Element::PWIDTH,
 			Element::PERIOD
 	};
 	_optionalParams = {
-			Element::TRISE
+			{Element::TDEL	, 0.0}
 	};
 	populate(node);
 }
