@@ -32,9 +32,29 @@ Pulsed::Pulsed(XMLNode* node)
 }
 
 void Pulsed::Calculate(int tick){
+	double T = _paramList[Element::PERIOD];
+	double t=0;
+	double intermediateValue;
+	while(t<T){
+		if(t < _paramList[Element::TDEL] + _paramList[Element::TRISE]) {
+			intermediateValue = (_paramList[Element::VHIGH] - _paramList[Element::VLOW]) * t;
+		}
+		else if(_paramList[Element::TDEL] + _paramList[Element::TRISE] < t < _paramList[Element::PWIDTH]) {
+			intermediateValue = _paramList[Element::VHIGH];
+		}
+		else if(_paramList[Element::TDEL] + _paramList[Element::TRISE] + _paramList[Element::PWIDTH] < t < _paramList[Element::TDEL] + _paramList[Element::TRISE] + _paramList[Element::PWIDTH] + _paramList[Element::TRISE] + _paramList[Element::TFALL]) {
+			intermediateValue = intermediateValue - (_paramList[Element::VHIGH] - _paramList[Element::VLOW]) * t;
+		}
+		else if(_paramList[Element::TDEL] + _paramList[Element::TRISE] + _paramList[Element::PWIDTH] + _paramList[Element::TFALL] < t < _paramList[Element::PERIOD]) {
+			intermediateValue = _paramList[Element::VLOW];
+		}
+		t++;
+	}
+	intermediateValue += BoxMuller(0,1);
+}
+
 
 }
 
-}
 }
 }
