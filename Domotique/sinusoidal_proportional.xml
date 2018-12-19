@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE simulation>
-<simulation name="Phase One test simulation">
-	<zone name="Temperature">
-		<phenomenon name="External Temperature" type="Sinusoidal">
-			<OFFS></OFFS>
-			<AMPL>10</AMPL>
-			<PHASE></PHASE>
-			<PERIOD>5</PERIOD>
-			<SAT_MAX></SAT_MAX>
-			<SAT_MIN></SAT_MIN>
+<simulation name="Sinusoidal Proportional">
+	<zone name="SP">
+		<phenomenon name="Phen-Sinusoidal" type="Sinusoidal">
+			<OFFS>3</OFFS>
+			<AMPL>50</AMPL>
+			<PHASE>8</PHASE>
+			<PERIOD>60</PERIOD>
+			<SAT_MAX>48</SAT_MAX>
+			<SAT_MIN>-46</SAT_MIN>
 		</phenomenon>
-		<controller name="Heater/cooler" type="OnOff">
-			<VTHRMAX>5</VTHRMAX>
-			<VTHRMIN>-5</VTHRMIN>
-			<VCTRLMAX>3</VCTRLMAX>
-			<VCTRLMIN>-3</VCTRLMIN>
+		<controller name="Cont-Proportional" type="Proportional">
+			<SETPT>10</SETPT>
+			<GAIN>8</GAIN>
 		</controller>
 		<state name="Room" type="State">
 			<influencePhenomenon>0.05</influencePhenomenon>
@@ -22,24 +20,10 @@
 		</state>
 	</zone>
 	<runner>
-		<ticks>99.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999</ticks>
+		<ticks>1000</ticks>
 	</runner>
-	<zone name="Flooding">
-		<phenomenon name="Water height" type="Random">
-			<valueLow>0</valueLow>
-			<valueHigh>6</valueHigh>
-		</phenomenon>
-		<controller name="Lock" type="Proportional">
-			<SETPT>10</SETPT>
-			<GAIN></GAIN>
-		</controller>
-		<state name="Canal" type="State">
-			<influencePhenomenon>0.01</influencePhenomenon>
-			<influenceController>0.5</influenceController>
-		</state>
-	</zone>
 	 <server>
-		 <logfile>domotique.log</logfile>
-		 <datafile>domotique.gp</datafile>
+		 <logfile>sp.log</logfile>
+		 <datafile>sp.gp</datafile>
 	 </server>
 </simulation>
