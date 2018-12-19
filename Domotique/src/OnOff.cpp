@@ -19,10 +19,11 @@ void OnOff::Calculate(int tick)
 	double stateVal = _state->Value();
 	if(stateVal > _paramList[Element::VTHRMAX])
 		_value = _paramList[Element::VCTRLMIN];
-	else if(stateVal > _paramList[Element::VTHRMIN])
+	else if(stateVal < _paramList[Element::VTHRMIN])
 		_value = _paramList[Element::VCTRLMAX];
 	else
 		_value = stateVal;
+
 }
 
 OnOff::OnOff(XMLNode * node) {

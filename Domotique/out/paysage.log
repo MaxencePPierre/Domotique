@@ -1,0 +1,44 @@
+[2018-12-19T21:0:19 CET] Server created
+[2018-12-19T21:0:19 CET] Data file paysage.gp created
+[2018-12-19T21:0:19 CET] Created new actor : Temperature_externe
+[2018-12-19T21:0:19 CET] Created new actor : Chauffage-climatiseur
+[2018-12-19T21:0:19 CET] Created new actor : Temperature_interne
+[2018-12-19T21:0:19 CET] Finished zone
+[2018-12-19T21:0:19 CET] Created new actor : pH-environmental
+[2018-12-19T21:0:19 CET] Created new actor : pH-controlleur
+[2018-12-19T21:0:19 CET] Created new actor : pH-regule
+[2018-12-19T21:0:19 CET] Finished zone
+[2018-12-19T21:0:19 CET] Preparing to run simulation for 300 ticks
+[2018-12-19T21:0:19 CET] Simulation started
+[2018-12-19T21:0:19 CET] Tick 0
+[2018-12-19T21:0:19 CET] Tick 10
+[2018-12-19T21:0:19 CET] Tick 20
+[2018-12-19T21:0:19 CET] Tick 30
+[2018-12-19T21:0:19 CET] Tick 40
+[2018-12-19T21:0:19 CET] Tick 50
+[2018-12-19T21:0:19 CET] Tick 60
+[2018-12-19T21:0:19 CET] Tick 70
+[2018-12-19T21:0:19 CET] Tick 80
+[2018-12-19T21:0:19 CET] Tick 90
+[2018-12-19T21:0:19 CET] Tick 100
+[2018-12-19T21:0:19 CET] Tick 110
+[2018-12-19T21:0:19 CET] Tick 120
+[2018-12-19T21:0:19 CET] Tick 130
+[2018-12-19T21:0:19 CET] Tick 140
+[2018-12-19T21:0:19 CET] Tick 150
+[2018-12-19T21:0:19 CET] Tick 160
+[2018-12-19T21:0:19 CET] Tick 170
+[2018-12-19T21:0:19 CET] Tick 180
+[2018-12-19T21:0:19 CET] Tick 190
+[2018-12-19T21:0:19 CET] Tick 200
+[2018-12-19T21:0:19 CET] Tick 210
+[2018-12-19T21:0:19 CET] Tick 220
+[2018-12-19T21:0:19 CET] Tick 230
+[2018-12-19T21:0:19 CET] Tick 240
+[2018-12-19T21:0:19 CET] Tick 250
+[2018-12-19T21:0:19 CET] Tick 260
+[2018-12-19T21:0:19 CET] Tick 270
+[2018-12-19T21:0:19 CET] Tick 280
+[2018-12-19T21:0:19 CET] Tick 290
+[2018-12-19T21:0:19 CET] Simulation completed successfully
+[2018-12-19T21:0:19 CET] Simulation finished

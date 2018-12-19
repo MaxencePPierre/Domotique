@@ -1,19 +1,21 @@
+set encoding utf8
 # first row as column headers
 set key autotitle columnhead
-set terminal png medium\
-	size 2160,1440 \
-#	transparent
+set terminal pdf colour enhanced font "arial,10" size 25.7cm,20cm
 
-#set output '| display png:-'
 set xlabel 'tick'
-names = "pp po sp so"
-#plot for [file in files] for [i=2:4] file.".gp" u 1:i w l 
-#set multiplot layout 2,2
-do for [name in names] {
+name = "paysage"
+subnames = "Chambre Aquarium"
+units = "ºC pH"
+sn = 0
+set output name.".pdf"
+set multiplot layout 2,1
+do for [j in "1 4"] {
+	sn = sn + 1
 	outfile = sprintf('%s.png', name)
-   set output outfile
-   filename = name.".gp"
-   set title sprintf("Scenario %s",name)
-   plot for [i=2:4] filename u 1:i w l
+	filename = name.".gp"
+	set title sprintf("Scenario %s",word(subnames,sn))
+	set ylabel sprintf("[%s]", word(units,sn))
+	plot for [i=j+1:j+3] filename u 1:i w l
 }
-#unset multiplot
+unset multiplot
