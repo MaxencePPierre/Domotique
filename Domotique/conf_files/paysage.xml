@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE simulation>
+<simulation name="Paysage finale">
+	<zone name="Chambre">
+		<phenomenon name="Temperature_externe" type="Sinusoidal">
+			<OFFS>10</OFFS>
+			<AMPL>20</AMPL>
+			<PHASE>8</PHASE>
+			<PERIOD>96</PERIOD> <!-- Un jour entier, divisée en morceaux de 15 min -->
+			<SAT_MAX></SAT_MAX>
+			<SAT_MIN></SAT_MIN>
+		</phenomenon>
+		<controller name="Chauffage-climatiseur" type="OnOff">
+			<VTHRMAX>22</VTHRMAX>
+			<VTHRMIN>18</VTHRMIN>
+			<!-- De 15 à 25 ºC doit être confortable -->
+			<VCTRLMAX>20</VCTRLMAX>
+			<VCTRLMIN>-10</VCTRLMIN>
+			<!-- ici, le chauffage est plus puissant que le refroideur -->
+		</controller>
+		<state name="Temperature_interne" type="State">
+			<influencePhenomenon>0.05</influencePhenomenon>
+			<influenceController>0.45</influenceController>
+			<!-- bonne insulation -->
+		</state>
+	</zone>
+	<runner>
+		<ticks>300</ticks>
+	</runner>
+	<server>
+		<logfile>paysage.log</logfile>
+		<datafile>paysage.gp</datafile>
+	</server>
+	<zone name="Aquarium">
+		<phenomenon name="pH-environmental" type="Pulsed">
+			<VLOW>1</VLOW>
+			<VHIGH>14</VHIGH>
+			<TRISE>6</TRISE>
+			<TFALL>3</TFALL>
+			<PWIDTH>9</PWIDTH>
+			<PERIOD>36</PERIOD>
+			<TDEL>9</TDEL>
+		</phenomenon>
+		<controller name="pH-controlleur" type="Proportional">
+			<SETPT>4</SETPT>
+			<GAIN>5</GAIN>
+		</controller>
+		<state name="pH-regule" type="State">
+			<influencePhenomenon>0.08</influencePhenomenon>
+			<influenceController>0.15</influenceController>
+		</state>
+	</zone>
+</simulation>
