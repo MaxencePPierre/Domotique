@@ -30,14 +30,15 @@ int main(int argc, char * argv[])
 		std::cerr << "Fatal error, must exit" << std::endl;
 		return -1;
 	}
-//	catch( std::out_of_range& e )
-//	{
-//		std::cerr << "out_of_range exception : " << e.what() << std::endl;
-//	} catch( std::exception& e )
-//	{
-//		std::cerr << "Ex caught: " << e.what();
-//		return -1;
-//	}
+	catch( std::out_of_range& e )
+	{
+		std::cerr << "out_of_range exception : " << e.what() << std::endl;
+		return -1;
+	} catch( std::exception& e )
+	{
+		std::cerr << "Ex caught: " << e.what();
+		return -1;
+	}
 	std::cout << "Application exiting" << std::endl;
 
 	return 0;
