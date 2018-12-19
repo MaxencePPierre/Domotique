@@ -4,7 +4,8 @@ Domotique/Debug/Domotique
 Debug/Domotique
 *.o
 *.d
-
+# Vim session files
+*.vim
 Domotique/.settings
 Domotique/html
 Domotique/latex

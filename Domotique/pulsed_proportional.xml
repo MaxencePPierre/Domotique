@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE simulation>
+<simulation name="Phase One test simulation">
+	<zone name="Temperature">
+		<phenomenon name="Phen-Pulsed" type="Pulsed">
+			<VLOW>0</VLOW>
+			<VHIGH>100</VHIGH>
+			<TRISE>6</TRISE>
+			<TFALL>3</TFALL>
+			<PWIDTH>9</PWIDTH>
+			<PERIOD>36</PERIOD>
+			<TDEL>90</TDEL>
+		</phenomenon>
+		<controller name="Lock" type="Proportional">
+			<SETPT>10</SETPT>
+			<GAIN></GAIN>
+		</controller>
+		<state name="Room" type="State">
+			<influencePhenomenon>0.05</influencePhenomenon>
+			<influenceController>0.15</influenceController>
+		</state>
+	</zone>
+	<runner>
+		<ticks>1000</ticks>
+	</runner>
+	<server>
+		<logfile>pulsed_onoff.log</logfile>
+		<datafile>pulsed_onoff.gp</datafile>
+	</server>
+</simulation>
