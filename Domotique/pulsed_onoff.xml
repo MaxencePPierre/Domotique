@@ -26,7 +26,7 @@
 		<ticks>1000</ticks>
 	</runner>
 	<server>
-		<logfile>pulsed_onoff.log</logfile>
-		<datafile>pulsed_onoff.gp</datafile>
+		<logfile>po.log</logfile>
+		<datafile>po.gp</datafile>
 	</server>
 </simulation>

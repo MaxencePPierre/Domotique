@@ -11,9 +11,9 @@
 			<PERIOD>36</PERIOD>
 			<TDEL>90</TDEL>
 		</phenomenon>
-		<controller name="Lock" type="Proportional">
+		<controller name="Cont-Proportional" type="Proportional">
 			<SETPT>10</SETPT>
-			<GAIN></GAIN>
+			<GAIN>8</GAIN>
 		</controller>
 		<state name="Room" type="State">
 			<influencePhenomenon>0.05</influencePhenomenon>
@@ -24,7 +24,7 @@
 		<ticks>1000</ticks>
 	</runner>
 	<server>
-		<logfile>pulsed_onoff.log</logfile>
-		<datafile>pulsed_onoff.gp</datafile>
+		<logfile>pp.log</logfile>
+		<datafile>pp.gp</datafile>
 	</server>
 </simulation>
