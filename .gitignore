@@ -1,6 +1,9 @@
 .metadata/
-Debug
 Release
+Domotique/Debug/Domotique
+Debug/Domotique
+*.o
+*.d
 
 Domotique/.settings
 Domotique/html

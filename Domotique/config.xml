@@ -40,6 +40,6 @@
 	</zone>
 	 <server>
 		 <logfile>domotique.log</logfile>
-		 <datafile>data.gp</datafile>
+		 <datafile>domotique.gp</datafile>
 	 </server>
 </simulation>

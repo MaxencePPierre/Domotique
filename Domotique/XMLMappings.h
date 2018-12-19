@@ -26,7 +26,7 @@ private:
 	// TODO change this string to an sstream, do the conversions in this class, in constructor?
 	std::string what_message;
 	std::string filename;
-	int line;
+	const int line;
 public:
 	/// Readonly character pointer to message that should be printed when exception caught
 	const char * what()
@@ -117,6 +117,7 @@ const std::map<const std::string, Element> ElementMap = {
 		{"PHASE"				, Element::PHASE			},
 		{"PERIOD"				, Element::PERIOD			},
 		{"SAT_MAX"				, Element::SAT_MAX			},
+		{"SAT_MIN"				, Element::SAT_MIN			},
 		{"VLOW"					, Element::VLOW				},
 		{"VHIGH"				, Element::VHIGH			},
 		{"TDEL"					, Element::TDEL				},

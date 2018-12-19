@@ -49,7 +49,9 @@ void XMLParseable::populate(XMLNode * node)
 	// Read all children ( i.e. parameters ) into vector for later processing
 	std::vector< XMLElement * > children;
 	for( auto * child = node->FirstChildElement(); child; child = child->NextSiblingElement() )
+	{
 		children.push_back( child );
+	}
 
 	// Attempt to read parameters into _paramList, matched with their values
 	for( auto * child : children )
